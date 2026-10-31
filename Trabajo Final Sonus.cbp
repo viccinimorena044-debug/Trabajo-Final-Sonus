@@ -31,13 +31,14 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Album.h" />
+		<Unit filename="Artista.h" />
+		<Unit filename="Calificacion.h" />
+		<Unit filename="Cancion.h" />
+		<Unit filename="Usuario.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="musicac.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="musicah.h" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

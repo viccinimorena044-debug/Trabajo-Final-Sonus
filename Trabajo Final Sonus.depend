@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1793391896 source:c:\users\feder\onedrive\desktop\trabajo final sonus\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<time.h>
+
