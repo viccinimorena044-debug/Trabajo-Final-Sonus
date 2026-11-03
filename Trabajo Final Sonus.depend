@@ -6,3 +6,42 @@
 	<conio.h>
 	<time.h>
 
+1793728054 source:c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\artista.c
+	<stdio.h>
+	"Artista.h"
+
+1793731806 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\artista.h
+	"Artista.h"
+
+1793728054 source:c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\registro.c
+	<stdio.h>
+	<string.h>
+	"Registro.h"
+	"Artista.h"
+
+1793728054 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\registro.h
+
+1793733376 source:c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<conio.h>
+	<time.h>
+	"Album.h"
+	"Cancion.h"
+	"Calificacion.h"
+
+1793732024 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\album.h
+	"Artista.h"
+	"Album.h"
+	"Usuario.h"
+
+1793731806 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\usuario.h
+	"Usuario.h"
+
+1793731806 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\cancion.h
+	"Cancion.h"
+
+1793731613 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\calificacion.h
+	"Calificacion.h"
+

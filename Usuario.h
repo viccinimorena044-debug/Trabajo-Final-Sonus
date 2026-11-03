@@ -1,6 +1,8 @@
 #ifndef USUARIO_H_INCLUDED
 #define USUARIO_H_INCLUDED
 
+#include "Usuario.h"
+
 // ===== ESTRUCTURAS =====
 typedef struct stUsuario
 {

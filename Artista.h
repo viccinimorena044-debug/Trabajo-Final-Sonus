@@ -1,5 +1,7 @@
-w#ifndef ARTISTA_H_INCLUDED
+#ifndef ARTISTA_H_INCLUDED
 #define ARTISTA_H_INCLUDED
+
+#include "Artista.h"
 
 // ===== ESTRUCTURAS =====
 typedef struct stArtista
@@ -22,7 +24,7 @@ int buscarArtistaPorNombre(char nombre[], Artista *a);
 void pausa();
 void limpiarPantalla();
 int generarId(char destino[], char prefijo);
-int verificarLoginArtista(char id[], char pass[], Artista *resultado);
-int verificarLoginUsuario(char id[], char pass[], Usuario *resultado);
+//int verificarLoginArtista(char id[], char pass[], Artista *resultado);
+//int verificarLoginUsuario(char id[], char pass[], Usuario *resultado);
 
 #endif // ARTISTA_H_INCLUDED

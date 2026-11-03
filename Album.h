@@ -1,5 +1,8 @@
 #ifndef ALBUM_H_INCLUDED
 #define ALBUM_H_INCLUDED
+#include "Artista.h"
+#include "Album.h"
+#include "Usuario.h"
 
 // ===== ESTRUCTURAS =====
 typedef struct stAlbum
