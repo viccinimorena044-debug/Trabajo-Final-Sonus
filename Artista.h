@@ -1,4 +1,4 @@
-#ifndef ARTISTA_H_INCLUDED
+w#ifndef ARTISTA_H_INCLUDED
 #define ARTISTA_H_INCLUDED
 
 // ===== ESTRUCTURAS =====
@@ -13,7 +13,8 @@ typedef struct stArtista
 // ===== PROTOTIPOS DE FUNCIONES =====
 
 // Archivos - Artistas
-int guardarArtista(Artista a);
+int guardarArtista(const char nombreArchivo[], Artista a);
+long cantidadArtistasArchivo(const char nombreArchivo[]);
 int buscarArtistaPorId(char id[], Artista *a);
 int buscarArtistaPorNombre(char nombre[], Artista *a);
 
