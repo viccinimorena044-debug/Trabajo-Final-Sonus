@@ -1,6 +1,8 @@
 #ifndef CANCION_H_INCLUDED
 #define CANCION_H_INCLUDED
 
+#include "Cancion.h"
+
 // ===== ESTRUCTURAS =====
 typedef struct stCancion
 {

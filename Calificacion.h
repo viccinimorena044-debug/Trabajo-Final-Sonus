@@ -1,6 +1,8 @@
 #ifndef CALIFICACION_H_INCLUDED
 #define CALIFICACION_H_INCLUDED
 
+#include "Calificacion.h"
+
 // ===== ESTRUCTURAS =====
 typedef struct stCalificacion
 {

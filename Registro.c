@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "Registro.h"
-
 #include "Artista.h"
+#include "Usuario.h"
 
 void registrarse()
 {
@@ -17,7 +17,7 @@ void registrarse()
         printf("\n0. Volver");
         printf("\nIngrese una opcion: ");
 
-        fgets(entrada, sizeof(int), stdin);
+        fgets(entrada, sizeof(entrada), stdin);
 
         if(strcmp(entrada, "1\n")==0)
         {
@@ -50,7 +50,7 @@ void registrarse()
         case 2:
         {
            printf("\n---Registro de Usuario---");
-
+           registrarUsuario();
            break;
         }
 
@@ -74,7 +74,7 @@ void registrarArtista()
     {
         printf("\nIngrese nombre del artista: ");
         //comprobamos que se halla leido
-        if(fgets(a.nombre, sizeof(Artista), stdin)==NULL)
+        if(fgets(a.nombre, sizeof(a.nombre), stdin)==NULL)
         {
             return;
         }
@@ -96,7 +96,7 @@ void registrarArtista()
         {
             return;
         }
-        a.nombre[strcspn(a.generoPrincipal, "\n")]='\0';
+        a.generoPrincipal[strcspn(a.generoPrincipal, "\n")]='\0';
 
         if(strlen(a.generoPrincipal)==0)   //verif q el mombre no este vacio
         {
@@ -123,13 +123,6 @@ void registrarArtista()
     }while(strlen(a.contrasenia)==0);
 
 
-
-    // Mostrar datos para comprobar la carga
-    printf("\n---Datos del artista---");
-    printf("\nNombre: %s", a.nombre);
-    printf("\nGenero principal: %s", a.generoPrincipal);
-    printf("\nContrasenia cargada correctamente.\n");
-
     if(generarId(a.idArtista, 'A')==0)
     {
         printf("\nNo se pudo generar el ID");
@@ -145,5 +138,75 @@ void registrarArtista()
     {
         printf("\nNo se pudo guadar el artista");
     }
+}
+
+void registrarUsuario()
+{
+    Usuario u;
+
+    do
+    {
+        printf("\nIngrese su email: ");
+        if(fgets(u.email, sizeof(u.email), stdin)== NULL)
+        {
+            return;
+        }
+        u.email[strcspn(u.email, "\n")]='\0';
+
+        if(strlen(u.email)==0)
+        {
+            printf("\nEl email no puede estar vacio");
+        }
+    }while(strlen(u.email)==0);
+
+
+    do
+    {
+        printf("\nIngrese su nickname: ");
+        if(fgets(u.nickname, sizeof(u.nickname), stdin)==NULL)
+        {
+            return;
+        }
+        u.nickname[strcspn(u.nickname, "\n")]='\0';
+
+        if(strlen(u.nickname)==0)
+        {
+            printf("\nEl nickname no puede estar vacio");
+        }
+    }while(strlen(u.nickname)==0);
+
+
+    do
+    {
+        printf("\nIngrese su contrasenia: ");
+
+        if(fgets(u.contrasenia, sizeof(u.contrasenia), stdin)== NULL)
+        {
+            return;
+        }
+        u.contrasenia[strcspn(u.contrasenia, "\n")]='\0';
+
+        if(strlen(u.contrasenia)==0)
+        {
+            printf("\nLa contrasenia no puede estar vacia");
+        }
+    }while(strlen(u.contrasenia)==0);
+
+
+    if(generarId(u.idUsuario, 'U') == 0)
+    {
+        printf("\nNo se pudo generar el ID del usuario");
+        return;
+    }
+
+    if(guardarUsuario("usuarios.dat", u) == 1)
+    {
+        printf("\nID del usuario registrado: %s", u.idUsuario);
+    }
+    else
+    {
+        printf("\nNo se pudo guardar el usuario");
+    }
+
 }
 

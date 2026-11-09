@@ -3,6 +3,6 @@
 
 void registrarse(); //Registro de artistas y usuarios
 void registrarArtista();  //Carga datos de un artista
-
+void registrarUsuario();    //Carga daos de un usuario
 
 #endif
