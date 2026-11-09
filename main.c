@@ -11,8 +11,109 @@
 #include "calificacion.h"
 #include "auxiliares.h"
 
+void menuPrincipal();
+void login();
+void registrarse();
+void menuArtista(Artista);
+void agregarModificarAlbum(Artista);
+void agregarModificarCancion(Artista);
+void menuUsuario(Usuario);
+void verCatalogoPorArtista();
+void verCancionesPorAlbum();
+void verInfoCancion();
+void calificarCancion(Usuario);
+void verMisCalificaciones(Usuario);
+void reporteTop10();
+void reporteAlbumesRecientes();
+void reporteArtistaMasCalificado();
+void reporteUsuarioMasActivo();
 
+int main()
+{
+    system("chcp 65001 > nul");
+    limpiarPantalla();
 
+    printf("============================================\n");
+    printf("      SISTEMA DE GESTION MUSICAL SONUS     \n");
+    printf("    Trabajo Practico - Programacion I     \n");
+    printf("============================================\n\n");
+
+    menuPrincipal();
+    return 0;
+}
+
+void menuPrincipal()
+{
+    int op;
+    do
+    {
+        limpiarPantalla();
+        printf("=========== MENU PRINCIPAL ===========\n");
+        printf("  1. Iniciar Sesion\n");
+        printf("  2. Registrarse\n");
+        printf("  0. Salir\n");
+        printf("=======================================\n");
+        printf("Ingrese opcion: ");
+        scanf("%d", &op);
+        fflush(stdin);
+
+        switch (op)
+        {
+            case 1: login(); break;
+            case 2: registrarse(); break;
+            case 0:
+                printf("Gracias por usar Sonus. Hasta pronto!\n");
+                break;
+            default:
+                printf("Opcion invalida!\n");
+                pausa();
+        }
+    } while (op != 0);
+}
+
+void login()
+{
+    char id[10], pass[20];
+    Artista art;
+    Usuario usu;
+
+    limpiarPantalla();
+    printf("=========== INICIO DE SESION ===========\n");
+    printf("Ingrese su ID: ");
+    gets(id);
+
+    printf("Ingrese su contrasena: ");
+    for (int i = 0; i < 19; i++)
+    {
+        pass[i] = getch();
+        if (pass[i] == 13)
+        {
+            pass[i] = '\0';
+            break;
+        }
+        printf("*");
+    }
+    pass[19] = '\0';
+    printf("\n");
+
+    if (verificarLoginArtista(id, pass, &art))
+    {
+        printf("\n Bienvenido, %s!\n", art.nombre);
+        pausa();
+        menuArtista(art);
+    }
+    else if (verificarLoginUsuario(id, pass, &usu))
+    {
+        printf("\n Bienvenido, %s!\n", usu.nickname);
+        pausa();
+        menuUsuario(usu);
+    }
+    else
+    {
+        printf("\n ID o contrasena incorrectos.\n");
+        pausa();
+    }
+}
 
 void verCatalogoPorArtista()
 {
@@ -86,7 +187,8 @@ void verMisCalificaciones(Usuario usu)
     {
         if (strcmp(cal.nicknameUsuario, usu.nickname) == 0)
         {
-            if (cant >= capacidad) {
+            if (cant >= capacidad)
+            {
                 capacidad += 5;
                 Calificacion *aux = realloc(misCals, capacidad * sizeof(Calificacion));
                 if (aux) misCals = aux;
@@ -97,11 +199,14 @@ void verMisCalificaciones(Usuario usu)
     }
     fclose(fCal);
 
-    if (cant == 0) {
+    if (cant == 0)
+    {
         printf("No calificaste ninguna cancion todavia\n");
-    } else {
+    } else
+    {
         printf("--- Tus Calificaciones ---\n");
-        for (int i = 0; i < cant; i++) {
+        for (int i = 0; i < cant; i++)
+        {
             printf("Cancion ID: %s | Puntaje: %d/5\n", misCals[i].idCancion, misCals[i].puntuacion);
         }
     }
