@@ -4,6 +4,15 @@
 #include <conio.h>
 #include <time.h>
 
+#include "artista.h"
+#include "usuario.h"
+#include "album.h"
+#include "cancion.h"
+#include "calificacion.h"
+#include "auxiliares.h"
+
+
+
 
 void verCatalogoPorArtista()
 {
@@ -60,13 +69,15 @@ void verMisCalificaciones(Usuario usu)
     int cant = 0;
     int capacidad = 5;
 
-    if (!fCal) {
+    if (!fCal)
+    {
         printf("Aun no hay calificaciones registradas.\n");
         return;
     }
 
     Calificacion *misCals = malloc(capacidad * sizeof(Calificacion));
-    if (!misCals) {
+    if (!misCals)
+    {
         fclose(fCal);
         return;
     }

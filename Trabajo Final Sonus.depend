@@ -1,10 +1,16 @@
 # depslib dependency file v1.0
-1793391896 source:c:\users\feder\onedrive\desktop\trabajo final sonus\main.c
+1794254456 source:c:\users\feder\onedrive\desktop\trabajo final sonus\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<conio.h>
 	<time.h>
+	"artista.h"
+	"usuario.h"
+	"album.h"
+	"cancion.h"
+	"calificacion.h"
+	"auxiliares.h"
 
 1793728054 source:c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\artista.c
 	<stdio.h>
@@ -44,4 +50,43 @@
 
 1793731613 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\calificacion.h
 	"Calificacion.h"
+
+1794254104 source:c:\users\feder\onedrive\desktop\trabajo final sonus\artista.c
+	<stdio.h>
+	<string.h>
+	"artista.h"
+
+1794249426 c:\users\feder\onedrive\desktop\trabajo final sonus\artista.h
+
+1794250806 c:\users\feder\onedrive\desktop\trabajo final sonus\usuario.h
+
+1794254026 c:\users\feder\onedrive\desktop\trabajo final sonus\album.h
+	"artista.h"
+
+1794244415 source:c:\users\feder\onedrive\desktop\trabajo final sonus\registro.c
+	<stdio.h>
+	<string.h>
+	"Registro.h"
+	"Artista.h"
+	"Usuario.h"
+
+1794244415 c:\users\feder\onedrive\desktop\trabajo final sonus\registro.h
+
+1794250789 source:c:\users\feder\onedrive\desktop\trabajo final sonus\usuario.c
+	<stdio.h>
+	<string.h>
+	"usuario.h"
+
+1794253999 c:\users\feder\onedrive\desktop\trabajo final sonus\cancion.h
+	"album.h"
+	"artista.h"
+
+1794254104 c:\users\feder\onedrive\desktop\trabajo final sonus\calificacion.h
+
+1794254104 source:c:\users\feder\onedrive\desktop\trabajo final sonus\album.c
+	<stdio.h>
+	<string.h>
+	"album.h"
+
+1794254424 c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.h
 
