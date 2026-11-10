@@ -36,12 +36,23 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Artista.h" />
+		<Unit filename="Auxiliares.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Auxiliares.h" />
+		<Unit filename="Calificacion.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="Calificacion.h" />
 		<Unit filename="Cancion.h" />
 		<Unit filename="Registro.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Registro.h" />
+		<Unit filename="Reportes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Reportes.h" />
 		<Unit filename="Usuario.c">
 			<Option compilerVar="CC" />
 		</Unit>

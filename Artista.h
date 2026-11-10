@@ -1,16 +1,12 @@
-#ifndef ARTISTA_H_INCLUDED
-#define ARTISTA_H_INCLUDED
+#ifndef ARTISTA_H
+#define ARTISTA_H
 
-typedef struct stArtista
-{
-    char idArtista[10];
-    char nombre[50];
-    char contrasenia[20];
-    char generoPrincipal[30];
-} Artista;
+#include "estructuras.h"
 
-int guardarArtista(Artista a);
-int buscarArtistaPorId(char id[], Artista *a);
-int buscarArtistaPorNombre(char nombre[], Artista *a);
+int loginArtista(char *idSalida, char *nombreSalida);
+void registrarArtista();
+void menuArtista(char *idArtista, char *nombreArtista);
+void agregarModificarAlbum(char *idArtista, char *nombreArtista);
+void agregarModificarCancion(char *idArtista);
 
 #endif

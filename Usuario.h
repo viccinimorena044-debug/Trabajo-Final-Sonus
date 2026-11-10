@@ -1,16 +1,13 @@
-#ifndef USUARIO_H_INCLUDED
-#define USUARIO_H_INCLUDED
+#ifndef USUARIO_H
+#define USUARIO_H
 
-typedef struct stUsuario
-{
-    char idUsuario[10];
-    char email[50];
-    char contrasenia[20];
-    char nickname[30];
-} Usuario;
+#include "estructuras.h"
 
-int guardarUsuario(Usuario u);
-int buscarUsuarioPorId(char id[], Usuario *u);
-int buscarUsuarioPorNickname(char nick[], Usuario *u);
+int loginUsuario(char *nicknameSalida);
+void registrarUsuario();
+void menuUsuario(char *nicknameUsuario);
+void verCatalogoPorArtista();
+void verCancionesPorAlbum();
+void verInfoCancion();
 
 #endif
