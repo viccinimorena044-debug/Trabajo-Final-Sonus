@@ -31,7 +31,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Album.h" />
 		<Unit filename="Artista.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -44,11 +43,11 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Calificacion.h" />
-		<Unit filename="Cancion.h" />
-		<Unit filename="Registro.c">
+		<Unit filename="Estructuras.h" />
+		<Unit filename="Menu.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Registro.h" />
+		<Unit filename="Menu.h" />
 		<Unit filename="Reportes.c">
 			<Option compilerVar="CC" />
 		</Unit>
