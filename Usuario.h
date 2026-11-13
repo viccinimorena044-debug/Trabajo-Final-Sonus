@@ -1,5 +1,6 @@
 #ifndef USUARIO_H_INCLUDED
 #define USUARIO_H_INCLUDED
+#include "Artista.h"
 
 // ===== ESTRUCTURAS =====
 typedef struct stUsuario
@@ -21,7 +22,7 @@ int buscarUsuarioPorNickname(char nick[], Usuario *u);
 void pausa();
 void limpiarPantalla();
 int generarId(char destino[], char prefijo);
-int verificarLoginArtista(char id[], char pass[], Artista *resultado);
-int verificarLoginUsuario(char id[], char pass[], Usuario *resultado);
+//int verificarLoginArtista(char id[], char pass[], Artista *resultado);
+//int verificarLoginUsuario(char id[], char pass[], Usuario *resultado);
 
 #endif // USUARIO_H_INCLUDED

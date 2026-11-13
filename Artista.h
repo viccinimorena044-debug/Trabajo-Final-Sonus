@@ -1,5 +1,7 @@
-w#ifndef ARTISTA_H_INCLUDED
+#ifndef ARTISTA_H_INCLUDED
 #define ARTISTA_H_INCLUDED
+
+#include "Usuario.h"
 
 // ===== ESTRUCTURAS =====
 typedef struct stArtista
