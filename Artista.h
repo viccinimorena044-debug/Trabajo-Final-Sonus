@@ -1,30 +1,15 @@
-#ifndef ARTISTA_H_INCLUDED
-#define ARTISTA_H_INCLUDED
 
-#include "Usuario.h"
+#ifndef ARTISTA_H
+#define ARTISTA_H
 
-// ===== ESTRUCTURAS =====
-typedef struct stArtista
-{
-    char idArtista[10];
-    char nombre[50];
-    char contrasenia[20];
-    char generoPrincipal[30];
-} Artista;
+#include "Estructuras.h"
 
-// ===== PROTOTIPOS DE FUNCIONES =====
+int loginArtista(char *idSalida, char *nombreSalida);
 
-// Archivos - Artistas
-int guardarArtista(const char nombreArchivo[], Artista a);
-long cantidadArtistasArchivo(const char nombreArchivo[]);
-int buscarArtistaPorId(char id[], Artista *a);
-int buscarArtistaPorNombre(char nombre[], Artista *a);
+void registrarArtista();
+void menuArtista(char *idArtista, char *nombreArtista);
+void agregarModificarAlbum(char *idArtista, char *nombreArtista);
 
-// Auxiliares
-void pausa();
-void limpiarPantalla();
-int generarId(char destino[], char prefijo);
-int verificarLoginArtista(char id[], char pass[], Artista *resultado);
-int verificarLoginUsuario(char id[], char pass[], Usuario *resultado);
+void agregarModificarCancion(char *idArtista);
 
-#endif // ARTISTA_H_INCLUDED
+#endif

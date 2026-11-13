@@ -1,11 +1,33 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <conio.h>
-#include <time.h>
 
 int main()
 {
+    int opcion;
 
-    return 0;
+    while (1)
+    {
+        menuPrincipal();
+        printf("Ingrese una opci�n: ");
+        scanf("%d", &opcion);
+        limpiarBuffer();
+
+        switch (opcion)
+        {
+            case 1:
+                iniciarSesion();
+                break;
+            case 2:
+                registrarse();
+                break;
+            case 3:
+                printf("\n=========================================\n");
+                printf("  �Gracias por usar Sonus 2.0! \n");
+                printf("  Saliendo del sistema...\n");
+                printf("=========================================\n");
+                return 0;
+            default:
+                printf("\n Opci�n inv�lida. Intente nuevamente.\n");
+                pausa();
+        }
+    }
 }
