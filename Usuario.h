@@ -21,6 +21,7 @@ void verCatalogoPorArtista();
 void verCancionesPorAlbum();
 void mostrarCancion(Cancion c);
 void verInfoCancion();
+void verInfoDetalladaCancion();
 
 // ===== AUXILIARES =====
 void pausa();

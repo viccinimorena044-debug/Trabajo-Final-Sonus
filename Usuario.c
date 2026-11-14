@@ -312,43 +312,7 @@ void verInfoCancion()
     {
         printf("\nNo se encontro la cancion");
     }
-    FILE *fAlb = fopen("albums.dat", "rb");
-    FILE *fCan = fopen("canciones.dat", "rb");
-    char tituloBuscar[100];
-    Album alb;
-    Cancion can;
-    int encontrado = 0;
 
-    if (!fAlb || !fCan) {
-        printf("Error al abrir archivos.\n");
-        if (fAlb) fclose(fAlb);
-        if (fCan) fclose(fCan);
-        return;
-    }
-
-    printf("\nCanciones por �lbum\n");
-    printf("T�tulo del �lbum: ");
-    fgets(tituloBuscar, 100, stdin);
-    tituloBuscar[strcspn(tituloBuscar, "\n")] = 0;
-
-    while (fread(&alb, sizeof(Album), 1, fAlb)) {
-        if (strcmp(alb.titulo, tituloBuscar) == 0) {
-            encontrado = 1;
-            printf("\n�lbum: %s %d\n", alb.titulo, alb.anioLanzamiento);
-
-            while (fread(&can, sizeof(Cancion), 1, fCan)) {
-                if (strcmp(can.idAlbum, alb.idAlbum) == 0) {
-                    printf("- %s (%d seg) � Nota: %.1f\n", can.titulo, can.duracionSegundos, can.calificacionPromedio);
-                }
-            }
-            break;
-        }
-    }
-
-    if (!encontrado) printf("�lbum no encontrado.\n");
-
-    fclose(fAlb);
-    fclose(fCan);
 }
 void verInfoDetalladaCancion() {
     FILE *fCan = fopen("canciones.dat", "rb");
@@ -378,56 +342,6 @@ void verInfoDetalladaCancion() {
 
     if (!encontrado)
     printf("Canci�n no encontrada.\n");
-
-    fclose(fCan);
-}
-
-void verInfoDetalladaCancion()
-{
-    FILE *fCan = fopen("canciones.dat", "rb");
-
-    if(fCan == NULL)
-    {
-        printf("\nError al abrir canciones");
-        return;
-    }
-
-    char tituloBuscar[100];
-    Cancion can;
-    int encontrado = 0;
-
-    printf("\nInfo detallada de cancion");
-    printf("\nTitulo de la cancion: ");
-
-    if(fgets(tituloBuscar, 100, stdin) == NULL)
-    {
-        fclose(fCan);
-        return;
-    }
-
-    tituloBuscar[strcspn(tituloBuscar, "\n")] = '\0';
-
-    while(fread(&can, sizeof(Cancion), 1, fCan) == 1)
-    {
-        if(strcmp(can.titulo, tituloBuscar) == 0)
-        {
-            encontrado = 1;
-
-            printf("\nTitulo: %s", can.titulo);
-            printf("\nID: %s", can.idCancion);
-            printf("\nDuracion: %d segundos",
-                   can.duracionSegundos);
-            printf("\nCalificacion promedio: %.1f",
-                   can.calificacionPromedio);
-
-            break;
-        }
-    }
-
-    if(encontrado == 0)
-    {
-        printf("\nCancion no encontrada");
-    }
 
     fclose(fCan);
 }
