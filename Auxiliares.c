@@ -24,7 +24,7 @@ void generarIdArtista(char *destino) {
         while (fread(&a, sizeof(Artista), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "A%09d", contador + 1);
+    sprintf(destino, "A%08d", contador + 1);
 }
 
 // Genera ID automático para Usuario
@@ -36,7 +36,7 @@ void generarIdUsuario(char *destino) {
         while (fread(&u, sizeof(Usuario), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "U%09d", contador + 1);
+    sprintf(destino, "U%08d", contador + 1);
 }
 
 // Genera ID automático para Álbum
@@ -48,7 +48,7 @@ void generarIdAlbum(char *destino) {
         while (fread(&a, sizeof(Album), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "L%09d", contador + 1);
+    sprintf(destino, "L%08d", contador + 1);
 }
 
 // Genera ID automático para Canción
@@ -60,7 +60,7 @@ void generarIdCancion(char *destino) {
         while (fread(&c, sizeof(Cancion), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "C%09d", contador + 1);
+    sprintf(destino, "C%08d", contador + 1);
 }
 
 // Genera ID automático para Calificación
@@ -72,7 +72,7 @@ void generarIdCalificacion(char *destino) {
         while (fread(&c, sizeof(Calificacion), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "CAL%07d", contador + 1);
+    sprintf(destino, "CAL%06d", contador + 1);
 }
 
 // Verifica si un álbum ya existe para ese artista
@@ -114,7 +114,7 @@ void recalcularPromedio(const char *idCancion) {
     while (fread(&can, sizeof(Cancion), 1, fCan)) {
         if (strcmp(can.idCancion, idCancion) == 0) {
             can.calificacionPromedio = (cantidad > 0) ? (suma / cantidad) : 0.0f;
-            fseek(fCan, -sizeof(Cancion), SEEK_CUR);
+            fseek(fCan, -(long)sizeof(Cancion), SEEK_CUR);
             fwrite(&can, sizeof(Cancion), 1, fCan);
             break;
         }

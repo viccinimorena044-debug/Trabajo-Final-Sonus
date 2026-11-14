@@ -10,6 +10,7 @@ int loginUsuario(char *nicknameSalida);
 // ===== REGISTRO =====
 Usuario cargar1Usuario();
 int guardarUsuario(const char nombreArchivo[], Usuario u);
+int existeNickname (const char nombreArchivo[], const char nickname[]);
 void registrarUsuario();
 
 // ===== MENU USUARIO =====
@@ -18,6 +19,7 @@ void menuUsuario(char *nicknameUsuario);
 // ===== CONSULTAS =====
 void verCatalogoPorArtista();
 void verCancionesPorAlbum();
+void mostrarCancion(Cancion c);
 void verInfoCancion();
 
 // ===== AUXILIARES =====

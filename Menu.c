@@ -3,6 +3,7 @@
 #include "artista.h"
 #include "usuario.h"
 #include "reportes.h"
+#include "Calificacion.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -35,8 +36,15 @@ void iniciarSesion()
     printf("  1.  Soy Artista\n");
     printf("  2.  Soy Usuario\n");
     printf("Seleccione una opción: ");
-    scanf("%d", &tipo);
-    limpiarBuffer();
+    if(scanf("%d", &tipo)==1)
+    {
+        limpiarBuffer();
+    }
+    else
+    {
+        limpiarBuffer();
+        tipo= -1;
+    }
 
     if (tipo == 1)
     {
@@ -71,8 +79,15 @@ void registrarse()
     printf("  1.  Cuenta de Artista\n");
     printf("  2.  Cuenta de Usuario\n");
     printf("Seleccione una opción: ");
-    scanf("%d", &tipo);
-    limpiarBuffer();
+    if(scanf("%d", &tipo)==1)
+    {
+        limpiarBuffer();
+    }
+    else
+    {
+        limpiarBuffer();
+        tipo= -1;
+    }
 
     if (tipo == 1)
     {
@@ -108,8 +123,15 @@ void menuArtista(char *idArtista, char *nombreArtista)
         printf("  7. Cerrar Sesion\n");
         printf("========================================\n");
         printf("Seleccione una opción: ");
-        scanf("%d", &opcion);
-        limpiarBuffer();
+        if(scanf("%d", &opcion)==1)
+        {
+            limpiarBuffer();
+        }
+        else
+        {
+            limpiarBuffer();
+            opcion= -1;
+        }
 
         switch (opcion)
         {
@@ -146,8 +168,16 @@ void menuUsuario(char *nicknameUsuario)
         printf(" 10. Cerrar Sesión\n");
         printf("========================================\n");
         printf("Seleccione una opción: ");
-        scanf("%d", &opcion);
-        limpiarBuffer();
+
+        if(scanf("%d", &opcion)==1)
+        {
+            limpiarBuffer();
+        }
+        else
+        {
+            limpiarBuffer();
+            opcion= -1;
+        }
 
         switch (opcion)
         {

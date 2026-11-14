@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include "Menu.h"
+#include "Auxiliares.h"
 
 int main()
 {
@@ -7,9 +9,16 @@ int main()
     while (1)
     {
         menuPrincipal();
-        printf("Ingrese una opci�n: ");
-        scanf("%d", &opcion);
-        limpiarBuffer();
+        printf("Ingrese una opcion: ");
+        if(scanf("%d", &opcion)==1)
+        {
+            limpiarBuffer();
+        }
+        else
+        {
+            limpiarBuffer();
+            opcion= -1;
+        }
 
         switch (opcion)
         {
@@ -21,13 +30,14 @@ int main()
                 break;
             case 3:
                 printf("\n=========================================\n");
-                printf("  �Gracias por usar Sonus 2.0! \n");
+                printf("  Gracias por usar Sonus 2.0! \n");
                 printf("  Saliendo del sistema...\n");
                 printf("=========================================\n");
                 return 0;
             default:
-                printf("\n Opci�n inv�lida. Intente nuevamente.\n");
+                printf("\n Opcion invalida. Intente nuevamente.\n");
                 pausa();
+                break;
         }
     }
 }

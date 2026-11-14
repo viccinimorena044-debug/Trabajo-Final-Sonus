@@ -6,12 +6,29 @@
 Usuario cargar1Usuario()
 {
     Usuario u = {0};
+
     printf("\nIngrese nickname: ");
-    scanf(" %29[^\n]", u.nickname);
+    if(fgets(u.nickname, 30, stdin)==NULL)
+    {
+        return u;
+    }
+    u.nickname[strcspn(u.nickname, "\n")]='\0';
+
+
     printf("\nIngrese email: ");
-    scanf(" %49[^\n]", u.email);
+    if(fgets(u.email, 50, stdin)==NULL)
+    {
+        return u;
+    }
+    u.email[strcspn(u.email, "\n")]='\0';
+
     printf("\nIngrese contrasenia: ");
-    scanf(" %19[^\n]", u.contrasenia);
+    if(fgets(u.contrasenia, 20, stdin)==NULL)
+    {
+        return u;
+    }
+    u.contrasenia[strcspn(u.contrasenia, "\n")]='\0';
+
     return u;
 }
 
@@ -28,24 +45,53 @@ int guardarUsuario(const char nombreArchivo[], Usuario u)
     return 0;
 }
 
+int existeNickname (const char nombreArchivo[], const char nickname[])
+{
+    FILE *archivo =fopen(nombreArchivo, "rb");
+
+    if(archivo ==NULL)
+    {
+        return 0;
+    }
+
+    Usuario u;
+
+    while(fread(&u, sizeof(Usuario), 1, archivo)==1)
+    {
+        if(strcmp(u.nickname, nickname)==0)
+        {
+            fclose(archivo);
+            return 1;
+        }
+    }
+    fclose(archivo);
+    return 0;
+}
+
 void registrarUsuario()
 {
     Usuario u = cargar1Usuario();
-    limpiarBuffer();
 
-    if(u.nickname[0] == '\0' || u.contrasenia[0] == '\0')
+
+    if(u.nickname[0] == '\0' || u.email[0]== '\0' || u.contrasenia[0]== '\0')
     {
-        printf("\nDatos de usuario incompletos.\n");
+        printf("\nDato/s del usuario no completos");
+        return;
+    }
+
+    if(existeNickname("usuarios.dat", u.nickname)==1)
+    {
+        printf("\nEse nickname ya existe");
         return;
     }
 
     generarIdUsuario(u.idUsuario);
-    if(u.idUsuario[0] == '\0')
+
+    if(u.idUsuario[0]=='\0')
     {
-        printf("\nNo se pudo generar el ID o se alcanzo el limite de usuarios.\n");
+        printf("\nNo se pudo generar el ID del usuario");
         return;
     }
-
     if(guardarUsuario("usuarios.dat", u) == 1)
     {
         printf("\nUsuario registrado. ID: %s\n", u.idUsuario);
@@ -95,4 +141,184 @@ int loginUsuario(char *nicknameSalida)
     fclose(archivo);
     printf("\nNickname o contrasenia incorrectos.\n");
     return 0;
+}
+
+void verCatalogoPorArtista()
+{
+    FILE *archivo= fopen("artistas.dat", "rb");
+
+    if(archivo ==NULL)
+    {
+        printf("\nNo hay artistas registrados");
+        return;
+    }
+
+    Artista a;
+
+    char nombreBuscado[50];
+    char idEncontrado[10]=" ";
+    int encontrado=0;
+
+    printf("\nIngrese el nombre del artista: ");
+    fgets(nombreBuscado, 50, stdin);
+    nombreBuscado[strcspn(nombreBuscado, "\n")]='\0';
+
+    while(fread(&a, sizeof(Artista), 1, archivo)==1)
+    {
+        if(strcmp(a.nombre, nombreBuscado)==0)
+        {
+            strcpy(idEncontrado, a.idArtista);
+            encontrado=1;
+        }
+    }
+    fclose(archivo);
+    if(encontrado ==0)
+    {
+        printf("\nNo se encontro el artista");
+        return;
+    }
+
+    FILE *archivoCanciones=fopen("canciones.dat", "rb");
+    Cancion c;
+    int contador=0;
+
+    if(archivoCanciones ==NULL)
+    {
+        printf("\nNo hay canciones registradas");
+        return;
+    }
+
+    while(fread(&c, sizeof(Cancion), 1, archivoCanciones)==1)
+    {
+        if(strcmp(c.idArtista, idEncontrado)==0)
+        {
+            printf("\nCancion: %s", c.titulo);
+            contador++;
+        }
+    }
+
+    fclose(archivoCanciones);
+    if(contador ==0)
+    {
+        printf("\nEl artista no tiene canciones registradas");
+    }
+}
+
+void verCancionesPorAlbum()
+{
+    FILE * archivo=fopen("albumes.dat", "rb");
+
+    if(archivo ==NULL)
+    {
+        printf("\nNo hay albumes registrados");
+        return;
+    }
+
+    Album a;
+
+    char tituloBuscado[100];
+    char nombreArtistaBuscado[50];
+    char idAlbumEncontrado[10]= "";
+    int encontrado =0;
+
+    printf("\nIngrese el titulo del album: ");
+    fgets(tituloBuscado, 100, stdin);
+    tituloBuscado[strcspn(tituloBuscado, "\n")]='\0';
+
+    printf("\nIngresar el nombre del artista: ");
+    fgets(nombreArtistaBuscado, 50, stdin);
+    nombreArtistaBuscado[strcspn(nombreArtistaBuscado, "\n")]='\0';
+
+    while(fread(&a, sizeof(Album), 1, archivo)==1)
+    {
+        if(strcmp(a.titulo, tituloBuscado)==0 && strcmp(a.artista.nombre, nombreArtistaBuscado)==0)
+        {
+            strcpy(idAlbumEncontrado, a.idAlbum);
+            encontrado=1;
+        }
+    }
+
+    fclose(archivo);
+    if(encontrado ==0)
+    {
+        printf("\nNo se encontro el album del artista");
+        return;
+    }
+
+    FILE *archivoCanciones = fopen("canciones.dat", "rb");
+
+    if(archivoCanciones==NULL)
+    {
+        printf("\nNo hay canciones registradas");
+        return;
+    }
+
+    Cancion c;
+    int contador=0;
+
+    while(fread(&c, sizeof(Cancion), 1, archivoCanciones)==1)
+    {
+        if(strcmp(c.idAlbum, idAlbumEncontrado)==0)
+        {
+            printf("\nCancion: %s", c.titulo);
+            contador++;
+        }
+    }
+
+    fclose(archivoCanciones);
+
+    if(contador== 0)
+    {
+        printf("\nEl album no tiene registradas canciones");
+    }
+}
+
+void mostrarCancion(Cancion c)
+{
+    printf("\n\nCanion: ");
+    printf("\nID: %s", c.idCancion);
+    printf("\nTitulo: %s", c.titulo);
+    printf("\nId del artista: %s", c.idArtista);
+    printf("\nId del album: %s", c.idAlbum);
+    printf("\nCalificacion promedio: %.2f", c.calificacionPromedio);
+    printf("\nDuracion (segundos): %d", c.duracionSegundos);
+}
+
+void verInfoCancion()
+{
+    FILE *archivo=fopen("canciones.dat", "rb");
+
+    if(archivo ==NULL)
+    {
+        return;
+    }
+
+    char idCancion[15];
+    int encontrado= 0;
+
+    Cancion c;
+
+    printf("\nIngresar ID de cancion: ");
+    if(fgets(idCancion, sizeof(idCancion), stdin)==NULL)
+    {
+        fclose(archivo);
+        return;
+    }
+
+    idCancion[strcspn(idCancion, "\n")]='\0';
+
+    while(fread(&c, sizeof(Cancion), 1, archivo)==1)
+    {
+        if(strcmp(c.idCancion, idCancion)==0)
+        {
+            mostrarCancion(c);
+            encontrado=1;
+        }
+    }
+    fclose(archivo);
+
+    if(encontrado ==0)
+    {
+        printf("\nNo se encontro la cancion");
+    }
 }
