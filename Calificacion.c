@@ -102,3 +102,6 @@ void verMisCalificaciones(char *usuarioLogueado) {
     fclose(fCal);
     fclose(fCan);
 }
+
+
+

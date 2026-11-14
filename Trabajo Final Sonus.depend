@@ -90,3 +90,31 @@
 
 1794254424 c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.h
 
+1794574577 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\artista.c
+	"artista.h"
+	"auxiliares.h"
+	<stdio.h>
+	<string.h>
+
+1794574577 c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\artista.h
+	"Estructuras.h"
+
+1794574577 c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\estructuras.h
+
+1794574577 c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\auxiliares.h
+	"Estructuras.h"
+
+1794574577 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\auxiliares.c
+	"auxiliares.h"
+	<stdio.h>
+	<string.h>
+
+1794576008 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\calificacion.c
+	"calificacion.h"
+	"auxiliares.h"
+	<stdio.h>
+	<string.h>
+
+1794574577 c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\calificacion.h
+	"estructuras.h"
+
