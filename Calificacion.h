@@ -1,9 +1,9 @@
-#ifndef CALIFICACION_H
-#define CALIFICACION_H
+#ifndef CALIFICACION_H_INCLUDED
+#define CALIFICACION_H_INCLUDED
 
-#include "estructuras.h"
+#include "Estructuras.h"
 
 void calificarCancion(char *usuarioLogueado);
 void verMisCalificaciones(char *usuarioLogueado);
 
-#endif
+#endif // CALIFICACION_H_INCLUDED

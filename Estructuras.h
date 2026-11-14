@@ -1,47 +1,54 @@
-#ifndef ESTRUCTURAS_H_INCLUDED
-#define ESTRUCTURAS_H_INCLUDED
+#ifndef ESTRUCTURAS_H
+#define ESTRUCTURAS_H
 
-typedef struct stArtista
-{
-    char idArtista[10];
-    char nombre[50];
-    char contrasenia[20];
-    char generoPrincipal[30];
-} Artista;
+#define MAX_NOMBRE 50
+#define MAX_TITULO 100
+#define MAX_ID 10
+#define MAX_EMAIL 50
+#define MAX_PASS 20
+#define MAX_NICK 30
 
-typedef struct stUsuario
+typedef struct
 {
-    char idUsuario[10];
-    char email[50];
-    char contrasenia[20];
-    char nickname[30];
+    char idUsuario[MAX_ID];
+    char nickname[MAX_NICK];
+    char email[MAX_EMAIL];
+    char contrasenia[MAX_PASS];
 } Usuario;
 
-typedef struct stAlbum
+typedef struct
 {
-    char idAlbum[10];
+    char idArtista[MAX_ID];
+    char nombre[MAX_NOMBRE];
+    char generoPrincipal[30];
+    char contrasenia[MAX_PASS];
+} Artista;
+
+typedef struct
+{
+    char idAlbum[MAX_ID];
+    char titulo[MAX_TITULO];
     Artista artista;
-    char titulo[100];
     int anioLanzamiento;
     int cantidadCanciones;
 } Album;
 
-typedef struct stCancion
+typedef struct
 {
-    char idCancion[10];
-    char titulo[100];
-    char idAlbum[10];
-    char idArtista[10];
+    char idCancion[MAX_ID];
+    char titulo[MAX_TITULO];
+    char idAlbum[MAX_ID];
+    char idArtista[MAX_ID];
     int duracionSegundos;
     float calificacionPromedio;
 } Cancion;
 
-typedef struct stCalificacion
+typedef struct
 {
-    char idRegistroCal[10];
-    char nicknameUsuario[30];
-    char idCancion[10];
+    char idRegistroCal[15];
+    char nicknameUsuario[MAX_NICK];
+    char idCancion[MAX_ID];
     int puntuacion;
 } Calificacion;
 
-#endif // ESTRUCTURAS_H_INCLUDED
+#endif

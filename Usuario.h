@@ -1,14 +1,12 @@
-#ifndef USUARIO_H
-#define USUARIO_H
+#ifndef USUARIO_H_INCLUDED
+#define USUARIO_H_INCLUDED
 
-#include "estructuras.h"
+#include "Estructuras.h"
 
 int loginUsuario(char *nicknameSalida);
 void registrarUsuario();
-void menuUsuario(char *nicknameUsuario);
 void verCatalogoPorArtista();
 void verCancionesPorAlbum();
 void verInfoCancion();
 
 #endif
-

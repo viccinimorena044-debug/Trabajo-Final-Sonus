@@ -1,7 +1,7 @@
 #ifndef AUXILIARES_H
 #define AUXILIARES_H
 
-#include "estructuras.h"
+#include "Estructuras.h"
 
 void limpiarBuffer();
 void pausa();
