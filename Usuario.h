@@ -1,31 +1,12 @@
-
-#ifndef USUARIO_H
-#define USUARIO_H
+#ifndef USUARIO_H_INCLUDED
+#define USUARIO_H_INCLUDED
 
 #include "Estructuras.h"
 
-// ===== INICIO DE SESION =====
 int loginUsuario(char *nicknameSalida);
-
-// ===== REGISTRO =====
-Usuario cargar1Usuario();
-int guardarUsuario(const char nombreArchivo[], Usuario u);
-int existeNickname (const char nombreArchivo[], const char nickname[]);
 void registrarUsuario();
-
-// ===== MENU USUARIO =====
-void menuUsuario(char *nicknameUsuario);
-
-// ===== CONSULTAS =====
 void verCatalogoPorArtista();
 void verCancionesPorAlbum();
-void mostrarCancion(Cancion c);
 void verInfoCancion();
-void verInfoDetalladaCancion();
-
-// ===== AUXILIARES =====
-void pausa();
-void limpiarPantalla();
-int generarId(char destino[], char prefijo);
 
 #endif

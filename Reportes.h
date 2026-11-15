@@ -6,4 +6,4 @@ void reporteAlbumesRecientes();
 void reporteArtistaMasCalificado();
 void reporteUsuarioMasActivo();
 
-#endif // REPORTES_H_INCLUDED
+#endif

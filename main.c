@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "Menu.h"
+#include "menu.h"
 #include "Auxiliares.h"
 
 int main()
@@ -10,14 +10,15 @@ int main()
     {
         menuPrincipal();
         printf("Ingrese una opcion: ");
-        if(scanf("%d", &opcion)==1)
+
+        if (scanf("%d", &opcion) == 1)
         {
             limpiarBuffer();
         }
         else
         {
             limpiarBuffer();
-            opcion= -1;
+            opcion = -1;
         }
 
         switch (opcion)
@@ -29,10 +30,7 @@ int main()
                 registrarse();
                 break;
             case 3:
-                printf("\n=========================================\n");
-                printf("  Gracias por usar Sonus 2.0! \n");
-                printf("  Saliendo del sistema...\n");
-                printf("=========================================\n");
+                printf("\n¡Gracias por usar Sonus! \n");
                 return 0;
             default:
                 printf("\n Opcion invalida. Intente nuevamente.\n");
