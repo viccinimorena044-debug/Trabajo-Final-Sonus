@@ -1,350 +1,335 @@
+#include "Reportes.h"
+#include "Estructuras.h"
+#include "Auxiliares.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "time.h"
 
-#include "reportes.h"
-#include "estructuras.h"
-#include "Artista.h"
-#include "auxiliares.h"
-
-void reporteTop10()
+// Estructura auxiliar para ordenar canciones
+typedef struct
 {
-    typedef struct
-    {
-        char titulo[100];
-        char artista[50];
-        float promedio;
-    } TopCancion;
+    char titulo[100];
+    char artista[50];
+    float promedio;
+} CancionReporte;
 
-    TopCancion lista[500], temp;
-    int n = 0, i, j;
+int compararCanciones(const void *a, const void *b)
+{
+    float fa = ((CancionReporte*)a)->promedio;
+    float fb = ((CancionReporte*)b)->promedio;
+    if (fb > fa) return 1;
+    if (fb < fa) return -1;
+    return 0;
+}
+
+// =====================================================
+// REPORTE: TOP 10 CANCIONES
+// =====================================================
+void reporteTop10Canciones()
+{
+    FILE *fCan = fopen("canciones.dat", "rb");
+    FILE *fArt = fopen("artistas.dat", "rb");
+    CancionReporte lista[500];
+    int cantidad = 0;
     Cancion can;
     Artista art;
 
-    limpiarPantalla();
-    printf("========== TOP 10 CANCIONES ==========\n");
-    printf("========================================\n");
+    printf("\n REPORTE: TOP 10 CANCIONES MEJOR CALIFICADAS\n");
+    printf("=====================================================\n");
 
-    FILE *fCan = fopen("canciones.dat", "rb");
-    if (!fCan)
+    if (!fCan || !fArt)
     {
-        printf("No hay canciones cargadas.\n");
-        pausa();
+        printf("No hay suficientes datos para generar el reporte.\n");
+        if (fCan) fclose(fCan);
+        if (fArt) fclose(fArt);
         return;
     }
 
-    while (n < 500 && fread(&can, sizeof(Cancion), 1, fCan))
+    while (fread(&can, sizeof(Cancion), 1, fCan))
     {
-        strcpy(lista[n].titulo, can.titulo);
-        if (buscarArtistaPorId("artistas.dat",can.idArtista, &art))
+        rewind(fArt);
+        char nombreArt[50] = "Desconocido";
+        while (fread(&art, sizeof(Artista), 1, fArt))
         {
-            strcpy(lista[n].artista, art.nombre);
-        }else
-        {
-            strcpy(lista[n].artista, "Desconocido");
-        }
-        lista[n].promedio = can.calificacionPromedio;
-        n++;
-    }
-    fclose(fCan);
-
-    // Ordenar de mayor a menor promedio
-    for(i = 0; i < n - 1; i++)
-    {
-        for(j = 0; j < n - i - 1; j++)
-        {
-            if(lista[j].promedio < lista[j+1].promedio)
+            if (strcmp(art.idArtista, can.idArtista) == 0)
             {
-                temp = lista[j];
-                lista[j] = lista[j+1];
-                lista[j+1] = temp;
+                strcpy(nombreArt, art.nombre);
+                break;
             }
         }
-    }
-
-    // Mostrar solo las primeras 10
-    if(n == 0)
-    {
-        printf("No hay canciones para mostrar.\n");
-    }else
-    {
-        int mostrar = (n < 10) ? n : 10;
-        for(i = 0; i < mostrar; i++)
+        if (can.calificacionPromedio > 0)
         {
-            printf("%2d. %-30s — %-20s %.2f\n",
-                   i+1, lista[i].titulo, lista[i].artista, lista[i].promedio);
+            strcpy(lista[cantidad].titulo, can.titulo);
+            strcpy(lista[cantidad].artista, nombreArt);
+            lista[cantidad].promedio = can.calificacionPromedio;
+            cantidad++;
         }
     }
-    printf("========================================\n");
-    pausa();
-}
+    fclose(fCan);
+    fclose(fArt);
 
-/// ==================================================
-/// 17. REPORTE: ÁLBUMES RECIENTES
-/// ==================================================
-void reporteAlbumesRecientes()
-{
-    typedef struct
+    if (cantidad == 0)
     {
-        char titulo[100];
-        char artista[50];
-        int anio;
-    } AlbumReciente;
-
-    AlbumReciente lista[500], temp;
-    int n = 0, i, j;
-    Album alb;
-
-    limpiarPantalla();
-    printf("======= ALBUMES MAS RECIENTES =======\n");
-    printf("========================================\n");
-
-    FILE *fAlb = fopen("albumes.dat", "rb");
-    if (!fAlb) {
-        printf("No hay albumes cargados.\n");
-        pausa();
+        printf("No hay canciones calificadas aun.\n");
         return;
     }
 
-time_t ahora = time(NULL);
-struct tm *fecha = localtime(&ahora);
-int anioActual = fecha->tm_year + 1900;
+    qsort(lista, cantidad, sizeof(CancionReporte), compararCanciones);
 
-    while (n < 500 && fread(&alb, sizeof(Album), 1, fAlb))
+    int mostrar = (cantidad < 10) ? cantidad : 10;
+    printf("  #  | %-40s | %-20s |  Promedio\n", "Cancion", "Artista");
+    printf("======================================================\n");
+    for (int i = 0; i < mostrar; i++)
     {
-        if (alb.anioLanzamiento >= anioActual - 1 &&
-            alb.anioLanzamiento <= anioActual)
-        {
-          strcpy(lista[n].titulo, alb.titulo);
-          strcpy(lista[n].artista, alb.artista.nombre);
-          lista[n].anio = alb.anioLanzamiento;
-          n++;
-        }
+        printf(" %3d | %-40s | %-20s |  %.2f\n",
+               i + 1, lista[i].titulo, lista[i].artista, lista[i].promedio);
+    }
+    printf("\n  Total canciones en reporte: %d\n", cantidad);
+}
+
+// =====================================================
+// REPORTE: ÁLBUMES MÁS RECIENTES
+// =====================================================
+void reporteAlbumesRecientes()
+{
+    FILE *fAlb = fopen("albumes.dat", "rb");
+    Album alb;
+    Album lista[500];
+    int cantidad = 0;
+
+    printf("\n REPORTE: ALBUMES MAS RECIENTES (por año de lanzamiento)\n");
+    printf("==========================================================\n");
+
+    if (!fAlb)
+    {
+        printf("No hay albumes registrados.\n");
+        return;
+    }
+
+    while (fread(&alb, sizeof(Album), 1, fAlb))
+    {
+        lista[cantidad] = alb;
+        cantidad++;
     }
     fclose(fAlb);
 
-    // Ordenar del más nuevo al más viejo
-    for(i = 0; i < n - 1; i++)
+    if (cantidad == 0)
     {
-        for (j = 0; j < n - i - 1; j++)
-        {
-            if(lista[j].anio < lista[j+1].anio)
-            {
-                temp = lista[j];
-                lista[j] = lista[j+1];
-                lista[j+1] = temp;
-            }
-        }
-    }
-
-    if (n == 0)
-    {
-        printf("No hay albumes para mostrar.\n");
-    }else
-    {
-        printf("Del mas reciente al mas antiguo:\n\n");
-        for (i = 0; i < n; i++)
-        {
-            printf("%4d | %-30s — %s\n",
-                   lista[i].anio, lista[i].titulo, lista[i].artista);
-        }
-    }
-    printf("========================================\n");
-    pausa();
-}
-
-// ==================================================
-// 18. REPORTE: ARTISTAS MÁS CALIFICADOS
-// ==================================================
-void reporteArtistaMasCalificado()
-{
-    typedef struct
-    {
-        char idArtista[10];
-        char nombre[50];
-        int cantidad;
-    } ArtistaCalificado;
-
-    ArtistaCalificado lista[500] = {0};
-    ArtistaCalificado temp;
-
-    int nArtistas = 0;
-    int i, j, encontrado;
-    int encontradaCancion;
-
-    Calificacion cal;
-    Cancion can;
-    Artista art;
-
-    FILE *fCal = fopen("calificaciones.dat", "rb");
-    FILE *fCan = fopen("canciones.dat", "rb");
-
-    limpiarPantalla();
-
-    printf("==== ARTISTAS MAS CALIFICADOS ====\n");
-    printf("========================================\n");
-
-    if (!fCal || !fCan)
-    {
-        printf("No se pudieron abrir los archivos.\n");
-
-        if (fCal) fclose(fCal);
-        if (fCan) fclose(fCan);
-
-        pausa();
+        printf("No hay albumes registrados.\n");
         return;
     }
 
-    // Recorrer todas las calificaciones
-    while (fread(&cal, sizeof(Calificacion), 1, fCal))
+    // Ordenar del más reciente al más antiguo
+    for (int i = 0; i < cantidad - 1; i++)
     {
-        encontradaCancion = 0;
-
-        // Buscar la canción correspondiente
-        rewind(fCan);
-
-        while (fread(&can, sizeof(Cancion), 1, fCan))
+        for (int j = 0; j < cantidad - i - 1; j++)
         {
-            if (strcmp(can.idCancion, cal.idCancion) == 0)
+            if (lista[j].anioLanzamiento < lista[j + 1].anioLanzamiento)
             {
-                encontradaCancion = 1;
-                break;
-            }
-        }
-
-        if (!encontradaCancion)
-            continue;
-
-        // Buscar al artista de esa canción
-        if (!buscarArtistaPorId("artistas.dat", can.idArtista, &art))
-            continue;
-
-        encontrado = 0;
-
-        // Verificar si el artista ya está en el arreglo
-        for (i = 0; i < nArtistas; i++)
-        {
-            if (strcmp(lista[i].idArtista, art.idArtista) == 0)
-            {
-                lista[i].cantidad++;
-                encontrado = 1;
-                break;
-            }
-        }
-
-        // Si no existe, agregarlo
-        if (!encontrado && nArtistas < 500)
-        {
-            strcpy(lista[nArtistas].idArtista, art.idArtista);
-            strcpy(lista[nArtistas].nombre, art.nombre);
-            lista[nArtistas].cantidad = 1;
-
-            nArtistas++;
-        }
-    }
-
-    fclose(fCal);
-    fclose(fCan);
-
-    // Ordenar de mayor a menor cantidad de calificaciones
-    for (i = 0; i < nArtistas - 1; i++)
-    {
-        for (j = 0; j < nArtistas - i - 1; j++)
-        {
-            if (lista[j].cantidad < lista[j + 1].cantidad)
-            {
-                temp = lista[j];
+                Album temp = lista[j];
                 lista[j] = lista[j + 1];
                 lista[j + 1] = temp;
             }
         }
     }
 
-    // Mostrar resultados
-    if (nArtistas == 0)
+    printf("  %-40s | %-20s | Año | Canciones\n", "Album", "Artista");
+    printf("=====================================================\n");
+    for (int i = 0; i < cantidad; i++)
     {
-        printf("No hay datos para mostrar.\n");
+        printf("  %-40s | %-20s | %4d | %d\n",
+               lista[i].titulo, lista[i].artista.nombre,
+               lista[i].anioLanzamiento, lista[i].cantidadCanciones);
     }
-    else
-    {
-        for (i = 0; i < nArtistas; i++)
-        {
-            printf("%2d. %-25s | Calificaciones: %d\n",
-                   i + 1,
-                   lista[i].nombre,
-                   lista[i].cantidad);
-        }
-    }
-
-    printf("========================================\n");
-    pausa();
+    printf("\n  Total albumes: %d\n", cantidad);
 }
 
-/// ==================================================
-/// 19. REPORTE: USUARIO MÁS ACTIVO
-/// ==================================================
-void reporteUsuarioMasActivo()
+// =====================================================
+// REPORTE: ARTISTA MEJOR CALIFICADO
+// =====================================================
+void reporteArtistaMasCalificado()
 {
-    typedef struct
+    FILE *fCan = fopen("canciones.dat", "rb");
+    FILE *fArt = fopen("artistas.dat", "rb");
+    Artista art;
+    Cancion can;
+
+    struct DatosArtista
     {
-        char nickname[30];
-        int cantidad;
-    }UsuarioActivo;
+        char id[10];
+        char nombre[50];
+        float sumaPromedios;
+        int cantidadCanciones;
+    } listaArtistas[500];
 
-    UsuarioActivo lista[500] = {0};
-    int nUsuarios = 0, i, j, encontrado;
-    Calificacion cal;
+    int cantArtistas = 0, i, j;
+    int indiceMejor = -1;
+    float mejorPromedio = 0;
 
-    limpiarPantalla();
-    printf("==== USUARIOS MAS ACTIVOS ====\n");
-    printf("(Cantidad de calificaciones realizadas)\n");
-    printf("========================================\n");
+    printf("\n REPORTE: ARTISTAS MEJOR CALIFICADOS\n");
+    printf("======================================================\n");
 
-    FILE *fCal = fopen("calificaciones.dat", "rb");
-    if (!fCal) {
-        printf("No hay calificaciones registradas.\n");
-        pausa();
+    if (!fCan || !fArt)
+    {
+        printf("No hay suficientes datos para generar el reporte.\n");
+        if (fCan) fclose(fCan);
+        if (fArt) fclose(fArt);
         return;
     }
 
-    while (nUsuarios < 500 && fread(&cal, sizeof(Calificacion), 1, fCal)) {
-        encontrado = 0;
-        for (i = 0; i < nUsuarios; i++) {
-            if (strcmp(lista[i].nickname, cal.nicknameUsuario) == 0) {
-                lista[i].cantidad++;
-                encontrado = 1;
+    // Inicializar lista de artistas
+    while (fread(&art, sizeof(Artista), 1, fArt))
+    {
+        strcpy(listaArtistas[cantArtistas].id, art.idArtista);
+        strcpy(listaArtistas[cantArtistas].nombre, art.nombre);
+        listaArtistas[cantArtistas].sumaPromedios = 0;
+        listaArtistas[cantArtistas].cantidadCanciones = 0;
+        cantArtistas++;
+    }
+
+    // Sumar promedios por artista
+    while (fread(&can, sizeof(Cancion), 1, fCan))
+    {
+        for (i = 0; i < cantArtistas; i++)
+        {
+            if (strcmp(listaArtistas[i].id, can.idArtista) == 0)
+            {
+                listaArtistas[i].sumaPromedios += can.calificacionPromedio;
+                if (can.calificacionPromedio > 0)
+                {
+                    listaArtistas[i].cantidadCanciones++;
+                }
                 break;
             }
         }
-        if (!encontrado) {
-            strcpy(lista[nUsuarios].nickname, cal.nicknameUsuario);
-            lista[nUsuarios].cantidad = 1;
-            nUsuarios++;
+    }
+
+    fclose(fArt);
+    fclose(fCan);
+
+    if (cantArtistas == 0)
+    {
+        printf("No hay artistas registrados.\n");
+        return;
+    }
+
+    printf("  %-30s | Canciones | Promedio Estelar\n", "Artista");
+    printf("=================================================================================\n");
+
+    for (i = 0; i < cantArtistas; i++)
+    {
+        float promedioArtista = 0;
+        if (listaArtistas[i].cantidadCanciones > 0)
+        {
+            promedioArtista = listaArtistas[i].sumaPromedios / listaArtistas[i].cantidadCanciones;
+        }
+        printf("  %-30s | %10d | %.2f\n",
+               listaArtistas[i].nombre,
+               listaArtistas[i].cantidadCanciones,
+               promedioArtista);
+
+        if (promedioArtista > mejorPromedio && listaArtistas[i].cantidadCanciones > 0)
+        {
+            mejorPromedio = promedioArtista;
+            indiceMejor = i;
+        }
+    }
+
+    if (indiceMejor != -1)
+    {
+        printf("=============================================================\n");
+        printf("ARTISTA MEJOR CALIFICADO: %s —  %.2f\n",
+               listaArtistas[indiceMejor].nombre, mejorPromedio);
+    } else
+    {
+        printf("=============================================================\n");
+        printf("Aun no hay calificaciones suficientes.\n");
+    }
+}
+
+// =====================================================
+// REPORTE: USUARIO MÁS ACTIVO
+// =====================================================
+void reporteUsuarioMasActivo()
+{
+    FILE *fCal = fopen("calificaciones.dat", "rb");
+    FILE *fUsu = fopen("usuarios.dat", "rb");
+    Calificacion cal;
+    Usuario usu;
+
+    struct DatosUsuario
+    {
+        char nickname[30];
+        int cantidadCalificaciones;
+    } listaUsuarios[500];
+
+    int cantUsuarios = 0, i;
+    int indiceMasActivo = -1;
+    int maxCalificaciones = 0;
+
+    printf("\n REPORTE: USUARIOS MAS ACTIVOS\n");
+    printf("=========================================================\n");
+
+    if (!fCal || !fUsu)
+    {
+        printf("No hay suficientes datos para generar el reporte.\n");
+        if (fCal) fclose(fCal);
+        if (fUsu) fclose(fUsu);
+        return;
+    }
+
+    // Inicializar lista de usuarios
+    while (fread(&usu, sizeof(Usuario), 1, fUsu))
+    {
+        strcpy(listaUsuarios[cantUsuarios].nickname, usu.nickname);
+        listaUsuarios[cantUsuarios].cantidadCalificaciones = 0;
+        cantUsuarios++;
+    }
+    fclose(fUsu);
+
+    // Contar calificaciones por usuario
+    while (fread(&cal, sizeof(Calificacion), 1, fCal))
+    {
+        for (i = 0; i < cantUsuarios; i++)
+        {
+            if (strcmp(listaUsuarios[i].nickname, cal.nicknameUsuario) == 0)
+            {
+                listaUsuarios[i].cantidadCalificaciones++;
+                break;
+            }
         }
     }
     fclose(fCal);
 
-    // Ordenar de mayor a menor cantidad
-    UsuarioActivo temp;
-    for (i = 0; i < nUsuarios - 1; i++) {
-        for (j = 0; j < nUsuarios - i - 1; j++) {
-            if (lista[j].cantidad < lista[j+1].cantidad) {
-                temp = lista[j];
-                lista[j] = lista[j+1];
-                lista[j+1] = temp;
-            }
+    if (cantUsuarios == 0)
+    {
+        printf("No hay usuarios registrados.\n");
+        return;
+    }
+
+    printf("  %-25s | Calificaciones Realizadas\n", "Usuario");
+    printf("=============================================================\n");
+
+    for (i = 0; i < cantUsuarios; i++)
+    {
+        printf("  %-25s | %d\n",
+               listaUsuarios[i].nickname,
+               listaUsuarios[i].cantidadCalificaciones);
+
+        if (listaUsuarios[i].cantidadCalificaciones > maxCalificaciones)
+        {
+            maxCalificaciones = listaUsuarios[i].cantidadCalificaciones;
+            indiceMasActivo = i;
         }
     }
 
-    if (nUsuarios == 0) {
-        printf("No hay datos para mostrar.\n");
-    } else {
-        for (i = 0; i < nUsuarios; i++) {
-            printf("%2d. %-20s | Calificaciones: %d\n",
-                   i+1, lista[i].nickname, lista[i].cantidad);
-        }
+    printf("===========================================================\n");
+    if (indiceMasActivo != -1 && maxCalificaciones > 0)
+    {
+        printf("USUARIO MAS ACTIVO: %s — %d calificaciones\n",
+               listaUsuarios[indiceMasActivo].nickname, maxCalificaciones);
+    } else
+    {
+        printf("Aun no hay calificaciones registradas.\n");
     }
-    printf("========================================\n");
-    pausa();
 }
