@@ -2,35 +2,78 @@
 #include <stdio.h>
 #include <string.h>
 
-// Limpia lo que queda en el búfer del teclado
+
+// Limpia lo que queda en el buffer del teclado
 void limpiarBuffer()
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-// Pausa antes de volver al menú
+
+// Pausa antes de volver al menu
 void pausa()
 {
     printf("\nPresione Enter para continuar...");
     limpiarBuffer();
 }
 
-// Genera ID automático para Artista
+
+void construirId  (char *destino, const char *prefijo, int numero, int anchoTotal)
+{
+    strcpy(destino, prefijo);
+
+    char numStr[20];
+    int i = 0;
+    int temp = numero;
+
+    // Extraer los digitos del numero al reves
+    if (temp == 0)
+    {
+        numStr[i++] = '0';
+    } else {
+        while (temp > 0) {
+            numStr[i++] = (temp % 10) + '0';
+            temp /= 10;
+        }
+    }
+    numStr[i] = '\0';
+
+    int cantDigitos = i;
+    int cerosFaltantes = anchoTotal - cantDigitos;
+
+    // Agregar los ceros a la izquierda necesarios
+    int pos = strlen(destino);
+    for (int c = 0; c < cerosFaltantes; c++) {
+        destino[pos++] = '0';
+    }
+    destino[pos] = '\0';
+
+    // Agregar los digitos en el orden correcto invirtiendolos
+    for (int j = cantDigitos - 1; j >= 0; j--) {
+        destino[pos++] = numStr[j];
+    }
+    destino[pos] = '\0';
+}
+
+
+// Genera ID automatico para Artista
 void generarIdArtista(char *destino)
 {
-    FILE *archivo = fopen("artistas.dat", "rb");
-    int contador = 0;
+    FILE *archivo= fopen("artistas.dat", "rb");
+    int contador= 0;
     Artista a;
+
     if (archivo)
     {
         while (fread(&a, sizeof(Artista), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "A%09d", contador + 1);
+    construirId(destino, "A", contador + 1, 9);
 }
 
-// Genera ID automático para Usuario
+
+// Genera ID automatico para Usuario
 void generarIdUsuario(char *destino)
 {
     FILE *archivo = fopen("usuarios.dat", "rb");
@@ -41,10 +84,12 @@ void generarIdUsuario(char *destino)
         while (fread(&u, sizeof(Usuario), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "U%09d", contador + 1);
+
+    construirId(destino, "U", contador + 1, 9);
 }
 
-// Genera ID automático para Álbum
+
+// Genera ID automatico para album
 void generarIdAlbum(char *destino)
 {
     FILE *archivo = fopen("albumes.dat", "rb");
@@ -55,10 +100,12 @@ void generarIdAlbum(char *destino)
         while (fread(&a, sizeof(Album), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "L%09d", contador + 1);
+
+    construirId(destino, "L", contador + 1, 9);
 }
 
-// Genera ID automático para Canción
+
+// Genera ID automatico para Cancion
 void generarIdCancion(char *destino)
 {
     FILE *archivo = fopen("canciones.dat", "rb");
@@ -69,10 +116,11 @@ void generarIdCancion(char *destino)
         while (fread(&c, sizeof(Cancion), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "C%09d", contador + 1);
+    construirId(destino, "C", contador + 1, 9);
 }
 
-// Genera ID automático para Calificación
+
+// Genera ID automatico para Calificacion
 void generarIdCalificacion(char *destino)
 {
     FILE *archivo = fopen("calificaciones.dat", "rb");
@@ -83,10 +131,11 @@ void generarIdCalificacion(char *destino)
         while (fread(&c, sizeof(Calificacion), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "CAL%07d", contador + 1);
+        construirId(destino, "CAL", contador + 1, 7);
 }
 
-// Verifica si un álbum ya existe para ese artista
+
+// Verifica si un album ya existe para ese artista
 int existeAlbumPorTituloYArtista(const char *titulo, const char *idArtista, char *idEncontrado)
 {
     FILE *archivo = fopen("albumes.dat", "rb");
@@ -106,7 +155,8 @@ int existeAlbumPorTituloYArtista(const char *titulo, const char *idArtista, char
     return existe;
 }
 
-// Recalcula el promedio de calificaciones de una canción
+
+// Recalcula el promedio de calificaciones de una cancion
 void recalcularPromedio(const char *idCancion)
 {
     FILE *fCal = fopen("calificaciones.dat", "rb");
@@ -133,7 +183,8 @@ void recalcularPromedio(const char *idCancion)
         if (strcmp(can.idCancion, idCancion) == 0)
         {
             can.calificacionPromedio = (cantidad > 0) ? (suma / cantidad) : 0.0f;
-            fseek(fCan, -sizeof(Cancion), SEEK_CUR);
+
+            fseek(fCan, -(long)sizeof(Cancion), SEEK_CUR);
             fwrite(&can, sizeof(Cancion), 1, fCan);
             break;
         }

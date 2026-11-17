@@ -4,25 +4,25 @@
 #include <string.h>
 
 // =====================================================
-// INICIAR SESIÓN COMO ARTISTA
+// INICIAR SESION COMO ARTISTA
 // =====================================================
 int loginArtista(char *idSalida, char *nombreSalida)
 {
     FILE *archivo = fopen("artistas.dat", "rb");
     if (!archivo)
     {
-        printf("No hay artistas registrados aun.\n");
+        printf("No hay artistas registrados aï¿½n.\n");
         return 0;
     }
 
     Artista a;
     char nombreIngresado[50], passIngresada[20];
 
-    printf("Nombre artistico: ");
+    printf("\nNombre artistico: ");
     fgets(nombreIngresado, 50, stdin);
     nombreIngresado[strcspn(nombreIngresado, "\n")] = 0;
 
-    printf("Contrasena: ");
+    printf("\nContrasena: ");
     fgets(passIngresada, 20, stdin);
     passIngresada[strcspn(passIngresada, "\n")] = 0;
 
@@ -51,32 +51,32 @@ void registrarArtista()
 
     if (!archivo)
     {
-        printf("Error al abrir archivo");
+        printf("\nError al abrir archivo");
         return;
     }
 
     generarIdArtista(nuevo.idArtista);
 
-    printf("Nombre artistico: ");
+    printf("\nNombre artistico: ");
     fgets(nuevo.nombre, 50, stdin);
     nuevo.nombre[strcspn(nuevo.nombre, "\n")] = 0;
 
-    printf("Genero principal: ");
+    printf("\nGenero principal: ");
     fgets(nuevo.generoPrincipal, 30, stdin);
     nuevo.generoPrincipal[strcspn(nuevo.generoPrincipal, "\n")] = 0;
 
-    printf("Contrasena: ");
+    printf("\nContrasenia: ");
     fgets(nuevo.contrasenia, 20, stdin);
     nuevo.contrasenia[strcspn(nuevo.contrasenia, "\n")] = 0;
 
     fwrite(&nuevo, sizeof(Artista), 1, archivo);
     fclose(archivo);
 
-    printf("Artista registrado — ID: %s\n", nuevo.idArtista);
+    printf("Artista registrado. ID: %s\n", nuevo.idArtista);
 }
 
 // =====================================================
-// AGREGAR O MODIFICAR UN ÁLBUM
+// AGREGAR O MODIFICAR UN ALBUM
 // =====================================================
 void agregarModificarAlbum(char *idArtista, char *nombreArtista)
 {
@@ -89,7 +89,7 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
     {
         archivo = fopen("albumes.dat", "wb+");
 
-        if (!archivo) { perror("Error albumes"); return; }
+    if (!archivo) { printf("Error Albumes"); return; }
     }
 
     printf("\n--- Agregar / Modificar Album ---\n");
@@ -105,11 +105,10 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
             encontrado = 1;
             printf("Modificando: %s\n", alb.titulo);
             nuevoAlbum = alb;
-
-            printf("Nuevo anio de lanzamiento: ");
+            printf("\nNuevo anio de lanzamiento: ");
             scanf("%d", &nuevoAlbum.anioLanzamiento);
             limpiarBuffer();
-            fseek(archivo, -sizeof(Album), SEEK_CUR);
+            fseek(archivo, -(long)sizeof(Album), SEEK_CUR);
             fwrite(&nuevoAlbum, sizeof(Album), 1, archivo);
             printf("Album modificado.\n");
             break;
@@ -122,20 +121,18 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
         strcpy(nuevoAlbum.titulo, tituloBuscar);
         strcpy(nuevoAlbum.artista.idArtista, idArtista);
         strcpy(nuevoAlbum.artista.nombre, nombreArtista);
-
-        printf("Anio de lanzamiento: ");
-
+        printf("\nAnio de lanzamiento: ");
         scanf("%d", &nuevoAlbum.anioLanzamiento);
         limpiarBuffer();
         nuevoAlbum.cantidadCanciones = 0;
         fwrite(&nuevoAlbum, sizeof(Album), 1, archivo);
-        printf("Album creado — ID: %s\n", nuevoAlbum.idAlbum);
+        printf("\nAlbum creado ID: %s\n", nuevoAlbum.idAlbum);
     }
     fclose(archivo);
 }
 
 // =====================================================
-// AGREGAR O MODIFICAR UNA CANCIÓN
+// AGREGAR O MODIFICAR UNA CANCION
 // =====================================================
 void agregarModificarCancion(char *idArtista)
 {
@@ -150,12 +147,7 @@ void agregarModificarCancion(char *idArtista)
     {
         fCanciones = fopen("canciones.dat", "wb+");
 
-        if (!fCanciones)
-        {
-            printf("Error canciones");
-        fclose(fAlbumes);
-        return;
-        }
+        if (!fCanciones) { printf("Error canciones"); fclose(fAlbumes); return; }
     }
 
     printf("\n--- Agregar / Modificar Cancion ---\n");
@@ -184,10 +176,10 @@ void agregarModificarCancion(char *idArtista)
             encontrado = 1;
             printf("Modificando cancion\n");
             nuevaCancion = can;
-            printf("Nueva duracion (seg): ");
+            printf("\nNueva duracion (seg): ");
             scanf("%d", &nuevaCancion.duracionSegundos);
             limpiarBuffer();
-            fseek(fCanciones, -sizeof(Cancion), SEEK_CUR);
+            fseek(fCanciones, -(long)sizeof(Cancion), SEEK_CUR);
             fwrite(&nuevaCancion, sizeof(Cancion), 1, fCanciones);
             printf("Cancion modificada.\n");
             break;
@@ -205,7 +197,7 @@ void agregarModificarCancion(char *idArtista)
         limpiarBuffer();
         nuevaCancion.calificacionPromedio = 0.0f;
         fwrite(&nuevaCancion, sizeof(Cancion), 1, fCanciones);
-        printf("Cancion creada — ID: %s\n", nuevaCancion.idCancion);
+        printf("Cancion creada. ID: %s\n", nuevaCancion.idCancion);
     }
     fclose(fCanciones);
 }
