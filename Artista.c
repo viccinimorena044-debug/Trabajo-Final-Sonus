@@ -11,7 +11,7 @@ int loginArtista(char *idSalida, char *nombreSalida)
     FILE *archivo = fopen("artistas.dat", "rb");
     if (!archivo)
     {
-        printf("No hay artistas registrados aún.\n");
+        printf("No hay artistas registrados aun.\n");
         return 0;
     }
 
@@ -51,7 +51,7 @@ void registrarArtista()
 
     if (!archivo)
     {
-        perror("Error al abrir archivo");
+        printf("Error al abrir archivo");
         return;
     }
 
@@ -71,7 +71,8 @@ void registrarArtista()
 
     fwrite(&nuevo, sizeof(Artista), 1, archivo);
     fclose(archivo);
-    printf("Artista registrado - ID: %s\n", nuevo.idArtista);
+
+    printf("Artista registrado — ID: %s\n", nuevo.idArtista);
 }
 
 // =====================================================
@@ -87,7 +88,8 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
     if (!archivo)
     {
         archivo = fopen("albumes.dat", "wb+");
-        if (!archivo) { perror("Error álbumes"); return; }
+
+        if (!archivo) { perror("Error albumes"); return; }
     }
 
     printf("\n--- Agregar / Modificar Album ---\n");
@@ -103,7 +105,7 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
             encontrado = 1;
             printf("Modificando: %s\n", alb.titulo);
             nuevoAlbum = alb;
-            printf("Nuevo año de lanzamiento: ");
+            printf("Nuevo anio de lanzamiento: ");
             scanf("%d", &nuevoAlbum.anioLanzamiento);
             limpiarBuffer();
             fseek(archivo, -sizeof(Album), SEEK_CUR);
@@ -119,7 +121,7 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
         strcpy(nuevoAlbum.titulo, tituloBuscar);
         strcpy(nuevoAlbum.artista.idArtista, idArtista);
         strcpy(nuevoAlbum.artista.nombre, nombreArtista);
-        printf("Año de lanzamiento: ");
+        printf("Anio de lanzamiento: ");
         scanf("%d", &nuevoAlbum.anioLanzamiento);
         limpiarBuffer();
         nuevoAlbum.cantidadCanciones = 0;
@@ -144,10 +146,16 @@ void agregarModificarCancion(char *idArtista)
     if (!fCanciones)
     {
         fCanciones = fopen("canciones.dat", "wb+");
-        if (!fCanciones) { perror("Error canciones"); fclose(fAlbumes); return; }
+
+        if (!fCanciones)
+        {
+            printf("Error canciones");
+        fclose(fAlbumes);
+        return;
+        }
     }
 
-    printf("\n--- Agregar / Modificar Canción ---\n");
+    printf("\n--- Agregar / Modificar Cancion ---\n");
     printf("Titulo del album: ");
     fgets(tituloAlbum, 100, stdin);
     tituloAlbum[strcspn(tituloAlbum, "\n")] = 0;

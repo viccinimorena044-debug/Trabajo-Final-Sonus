@@ -118,8 +118,8 @@ void menuArtista(char *idArtista, char *nombreArtista)
         printf("  2. Agregar / Modificar Cancion\n");
         printf("  3.  Top 10 Canciones\n");
         printf("  4.  Albumes Recientes\n");
-        printf("  5.  Artista Más Calificado\n");
-        printf("  6.  Usuario Más Activo\n");
+        printf("  5.  Artista Mas Calificado\n");
+        printf("  6.  Usuario Mas Activo\n");
         printf("  7. Cerrar Sesion\n");
         printf("========================================\n");
         printf("Seleccione una opcion: ");
@@ -158,7 +158,7 @@ void menuUsuario(char *nicknameUsuario)
         printf("========== MENU USUARIO: %s ==========\n", nicknameUsuario);
         printf("  1.  Ver Catalogo por Artista\n");
         printf("  2.  Ver Canciones por Album\n");
-        printf("  3.  Ver Info de Canción\n");
+        printf("  3.  Ver Info de Cancion\n");
         printf("  4.  Calificar Cancion\n");
         printf("  5.  Ver Mis Calificaciones\n");
         printf("  6.  Top 10 Canciones\n");
