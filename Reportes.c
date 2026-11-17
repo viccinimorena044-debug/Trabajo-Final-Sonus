@@ -29,6 +29,13 @@ void reporteTop10Canciones()
 {
     FILE *fCan = fopen("canciones.dat", "rb");
     FILE *fArt = fopen("artistas.dat", "rb");
+
+    typedef struct {
+        char titulo[100];
+        char artista[50];
+        float promedio;
+    } CancionReporte;
+
     CancionReporte lista[500];
     int cantidad = 0;
     Cancion can;
@@ -74,7 +81,19 @@ void reporteTop10Canciones()
         return;
     }
 
-    qsort(lista, cantidad, sizeof(CancionReporte), compararCanciones);
+
+    for (int i = 0; i < cantidad - 1; i++)
+    {
+        for (int j = 0; j < cantidad - i - 1; j++)
+        {
+            if (lista[j].promedio < lista[j + 1].promedio)
+            {
+                CancionReporte temp = lista[j];
+                lista[j] = lista[j + 1];
+                lista[j + 1] = temp;
+            }
+        }
+    }
 
     int mostrar = (cantidad < 10) ? cantidad : 10;
     printf("  #  | %-40s | %-20s |  Promedio\n", "Cancion", "Artista");

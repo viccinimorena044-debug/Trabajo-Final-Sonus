@@ -71,7 +71,7 @@ void registrarArtista()
 
     fwrite(&nuevo, sizeof(Artista), 1, archivo);
     fclose(archivo);
-    printf("Artista registrado — ID: %s\n", nuevo.idArtista);
+    printf("Artista registrado - ID: %s\n", nuevo.idArtista);
 }
 
 // =====================================================
