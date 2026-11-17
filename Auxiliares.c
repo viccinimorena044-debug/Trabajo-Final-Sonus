@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
+
 // Limpia lo que queda en el búfer del teclado
 void limpiarBuffer()
 {
@@ -9,26 +10,70 @@ void limpiarBuffer()
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+
 // Pausa antes de volver al menú
 void pausa()
 {
     printf("\nPresione Enter para continuar...");
     limpiarBuffer();
 }
+///
+void construirId  (char *destino, const char *prefijo, int numero, int anchoTotal)
+{
+    strcpy(destino, prefijo);
+
+    char numStr[20];
+    int i = 0;
+    int temp = numero;
+
+    // Extraer los dígitos del número al revés
+    if (temp == 0)
+    {
+        numStr[i++] = '0';
+    } else {
+        while (temp > 0) {
+            numStr[i++] = (temp % 10) + '0';
+            temp /= 10;
+        }
+    }
+    numStr[i] = '\0';
+
+    int cantDigitos = i;
+    int cerosFaltantes = anchoTotal - cantDigitos;
+
+    // Agregar los ceros a la izquierda necesarios
+    int pos = strlen(destino);
+    for (int c = 0; c < cerosFaltantes; c++) {
+        destino[pos++] = '0';
+    }
+    destino[pos] = '\0';
+
+    // Agregar los dígitos en el orden correcto invirtiéndolos
+    for (int j = cantDigitos - 1; j >= 0; j--) {
+        destino[pos++] = numStr[j];
+    }
+    destino[pos] = '\0';
+}
+
+
+
+///
 
 // Genera ID automático para Artista
 void generarIdArtista(char *destino)
 {
-    FILE *archivo = fopen("artistas.dat", "rb");
-    int contador = 0;
+    FILE *archivo= fopen("artistas.dat", "rb");
+    int contador= 0;
     Artista a;
     if (archivo)
     {
         while (fread(&a, sizeof(Artista), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "A%09d", contador + 1);
+    construirId(destino, "A", contador + 1, 9);
 }
+
+
 
 // Genera ID automático para Usuario
 void generarIdUsuario(char *destino)
@@ -41,8 +86,9 @@ void generarIdUsuario(char *destino)
         while (fread(&u, sizeof(Usuario), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "U%09d", contador + 1);
+    construirId(destino, "U", contador + 1, 9);
 }
+
 
 // Genera ID automático para Álbum
 void generarIdAlbum(char *destino)
@@ -55,8 +101,9 @@ void generarIdAlbum(char *destino)
         while (fread(&a, sizeof(Album), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "L%09d", contador + 1);
+    construirId(destino, "L", contador + 1, 9);
 }
+
 
 // Genera ID automático para Canción
 void generarIdCancion(char *destino)
@@ -69,8 +116,9 @@ void generarIdCancion(char *destino)
         while (fread(&c, sizeof(Cancion), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "C%09d", contador + 1);
+    construirId(destino, "C", contador + 1, 9);
 }
+
 
 // Genera ID automático para Calificación
 void generarIdCalificacion(char *destino)
@@ -83,8 +131,9 @@ void generarIdCalificacion(char *destino)
         while (fread(&c, sizeof(Calificacion), 1, archivo)) contador++;
         fclose(archivo);
     }
-    sprintf(destino, "CAL%07d", contador + 1);
+    construirId(destino, "CAL", contador + 1, 7);
 }
+
 
 // Verifica si un álbum ya existe para ese artista
 int existeAlbumPorTituloYArtista(const char *titulo, const char *idArtista, char *idEncontrado)
@@ -105,6 +154,7 @@ int existeAlbumPorTituloYArtista(const char *titulo, const char *idArtista, char
     fclose(archivo);
     return existe;
 }
+
 
 // Recalcula el promedio de calificaciones de una canción
 void recalcularPromedio(const char *idCancion)
@@ -133,10 +183,11 @@ void recalcularPromedio(const char *idCancion)
         if (strcmp(can.idCancion, idCancion) == 0)
         {
             can.calificacionPromedio = (cantidad > 0) ? (suma / cantidad) : 0.0f;
-            fseek(fCan, -sizeof(Cancion), SEEK_CUR);
+            fseek(fCan, -(long)sizeof(Cancion), SEEK_CUR);
             fwrite(&can, sizeof(Cancion), 1, fCan);
             break;
         }
     }
     fclose(fCan);
 }
+
