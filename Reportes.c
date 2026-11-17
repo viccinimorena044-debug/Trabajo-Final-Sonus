@@ -97,7 +97,7 @@ void reporteAlbumesRecientes()
     Album lista[500];
     int cantidad = 0;
 
-    printf("\n REPORTE: ALBUMES MAS RECIENTES (por año de lanzamiento)\n");
+    printf("\n REPORTE: ALBUMES MAS RECIENTES (por anio de lanzamiento)\n");
     printf("==========================================================\n");
 
     if (!fAlb)
@@ -133,7 +133,7 @@ void reporteAlbumesRecientes()
         }
     }
 
-    printf("  %-40s | %-20s | Año | Canciones\n", "Album", "Artista");
+    printf("  %-40s | %-20s | Anio | Canciones\n", "Album", "Artista");
     printf("=====================================================\n");
     for (int i = 0; i < cantidad; i++)
     {
