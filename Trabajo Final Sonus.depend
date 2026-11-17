@@ -43,9 +43,9 @@
 1793731613 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\calificacion.h
 	"Calificacion.h"
 
-1794686682 source:c:\users\feder\onedrive\desktop\trabajo final sonus\artista.c
-	"artista.h"
-	"auxiliares.h"
+1794938766 source:c:\users\feder\onedrive\desktop\trabajo final sonus\artista.c
+	"Artista.h"
+	"Auxiliares.h"
 	<stdio.h>
 	<string.h>
 
@@ -118,8 +118,8 @@
 
 1794700286 c:\users\feder\onedrive\desktop\trabajo final sonus\estructuras.h
 
-1794686682 source:c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.c
-	"auxiliares.h"
+1794705435 source:c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.c
+	"Auxiliares.h"
 	<stdio.h>
 	<string.h>
 
@@ -200,4 +200,12 @@
 	"Auxiliares.h"
 	<stdio.h>
 	<string.h>
+
+1794865271 source:c:\users\feder\onedrive\desktop\trabajo final sonus\reportes.c
+	"Reportes.h"
+	"Estructuras.h"
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
 
