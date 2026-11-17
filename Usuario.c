@@ -198,7 +198,7 @@ void verCancionesPorAlbum()
             break;
         }
     }
-    if (!albumEncontrado) printf("No se encontró ningun album con ese título.\n");
+    if (!albumEncontrado) printf("No se encontro ningun album con ese titulo.\n");
 
     fclose(fAlb);
     fclose(fCan);
