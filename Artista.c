@@ -105,6 +105,7 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
             encontrado = 1;
             printf("Modificando: %s\n", alb.titulo);
             nuevoAlbum = alb;
+
             printf("Nuevo anio de lanzamiento: ");
             scanf("%d", &nuevoAlbum.anioLanzamiento);
             limpiarBuffer();
@@ -121,7 +122,9 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
         strcpy(nuevoAlbum.titulo, tituloBuscar);
         strcpy(nuevoAlbum.artista.idArtista, idArtista);
         strcpy(nuevoAlbum.artista.nombre, nombreArtista);
+
         printf("Anio de lanzamiento: ");
+
         scanf("%d", &nuevoAlbum.anioLanzamiento);
         limpiarBuffer();
         nuevoAlbum.cantidadCanciones = 0;

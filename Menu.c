@@ -1,8 +1,8 @@
-#include "menu.h"
-#include "auxiliares.h"
-#include "artista.h"
-#include "usuario.h"
-#include "reportes.h"
+#include "Menu.h"
+#include "Auxiliares.h"
+#include "Artista.h"
+#include "Usuario.h"
+#include "Reportes.h"
 #include "Calificacion.h"
 #include <stdio.h>
 #include <string.h>
