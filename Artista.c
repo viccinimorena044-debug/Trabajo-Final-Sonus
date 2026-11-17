@@ -51,7 +51,7 @@ void registrarArtista()
 
     if (!archivo)
     {
-        perror("Error al abrir archivo");
+        printf("Error al abrir archivo");
         return;
     }
 
@@ -144,7 +144,12 @@ void agregarModificarCancion(char *idArtista)
     if (!fCanciones)
     {
         fCanciones = fopen("canciones.dat", "wb+");
-        if (!fCanciones) { perror("Error canciones"); fclose(fAlbumes); return; }
+        if (!fCanciones)
+        {
+            printf("Error canciones");
+        fclose(fAlbumes);
+        return;
+        }
     }
 
     printf("\n--- Agregar / Modificar Cancion ---\n");
