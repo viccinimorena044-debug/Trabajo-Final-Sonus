@@ -11,7 +11,7 @@ int loginArtista(char *idSalida, char *nombreSalida)
     FILE *archivo = fopen("artistas.dat", "rb");
     if (!archivo)
     {
-        printf("No hay artistas registrados a�n.\n");
+        printf("No hay artistas registrados aun.\n");
         return 0;
     }
 
@@ -106,7 +106,14 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
             printf("Modificando: %s\n", alb.titulo);
             nuevoAlbum = alb;
             printf("\nNuevo anio de lanzamiento: ");
-            scanf("%d", &nuevoAlbum.anioLanzamiento);
+            if(scanf("%d", &nuevoAlbum.anioLanzamiento)!= 1 ||nuevoAlbum.anioLanzamiento <=0)
+            {
+                limpiarBuffer();
+                printf("\nEl anio debe ser un numero positivo");
+                fclose(archivo);
+                return;
+            }
+
             limpiarBuffer();
             fseek(archivo, -(long)sizeof(Album), SEEK_CUR);
             fwrite(&nuevoAlbum, sizeof(Album), 1, archivo);
@@ -122,7 +129,14 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
         strcpy(nuevoAlbum.artista.idArtista, idArtista);
         strcpy(nuevoAlbum.artista.nombre, nombreArtista);
         printf("\nAnio de lanzamiento: ");
-        scanf("%d", &nuevoAlbum.anioLanzamiento);
+        if(scanf("%d", &nuevoAlbum.anioLanzamiento) !=1 || nuevoAlbum.anioLanzamiento <=0)
+        {
+            limpiarBuffer();
+            printf("\nEl anio tiene que ser un numero positivo");
+            fclose(archivo);
+            return;
+        }
+
         limpiarBuffer();
         nuevoAlbum.cantidadCanciones = 0;
         fwrite(&nuevoAlbum, sizeof(Album), 1, archivo);
@@ -138,11 +152,20 @@ void agregarModificarCancion(char *idArtista)
 {
     FILE *fAlbumes = fopen("albumes.dat", "rb");
     FILE *fCanciones = fopen("canciones.dat", "rb+");
-    char tituloAlbum[100], tituloCancion[100], idAlbumEncontrado[10];
+    char tituloAlbum[100], tituloCancion[100], idAlbumEncontrado[MAX_ID];
     Cancion can, nuevaCancion;
     int encontrado = 0;
 
-    if (!fAlbumes) { printf("No hay albumes registrados.\n"); return; }
+    if (!fAlbumes) {
+        printf("No hay albumes registrados.\n");
+
+        if(fCanciones !=NULL)
+        {
+            fclose(fCanciones);
+        }
+
+        return;
+    }
     if (!fCanciones)
     {
         fCanciones = fopen("canciones.dat", "wb+");
@@ -177,7 +200,14 @@ void agregarModificarCancion(char *idArtista)
             printf("Modificando cancion\n");
             nuevaCancion = can;
             printf("\nNueva duracion (seg): ");
-            scanf("%d", &nuevaCancion.duracionSegundos);
+            if(scanf("%d", &nuevaCancion.duracionSegundos) !=1 || nuevaCancion.duracionSegundos <=0)
+            {
+                limpiarBuffer();
+                printf("\nLa duracion tiene que ser un numero positiva");
+                fclose(fCanciones);
+                return;
+            }
+
             limpiarBuffer();
             fseek(fCanciones, -(long)sizeof(Cancion), SEEK_CUR);
             fwrite(&nuevaCancion, sizeof(Cancion), 1, fCanciones);
@@ -193,7 +223,14 @@ void agregarModificarCancion(char *idArtista)
         strcpy(nuevaCancion.idAlbum, idAlbumEncontrado);
         strcpy(nuevaCancion.idArtista, idArtista);
         printf("Duracion (segundos): ");
-        scanf("%d", &nuevaCancion.duracionSegundos);
+        if(scanf("%d", &nuevaCancion.duracionSegundos) != 1|| nuevaCancion.duracionSegundos <=0)
+        {
+            limpiarBuffer();
+            printf("\nLa duracion debe ser un numero positivo");
+            fclose(fCanciones);
+            return;
+        }
+
         limpiarBuffer();
         nuevaCancion.calificacionPromedio = 0.0f;
         fwrite(&nuevaCancion, sizeof(Cancion), 1, fCanciones);

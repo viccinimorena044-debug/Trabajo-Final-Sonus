@@ -43,6 +43,30 @@ int loginUsuario(char *nicknameSalida)
 // =====================================================
 // REGISTRAR NUEVO USUARIO
 // =====================================================
+
+int buscarUsuario (char nickname[])
+{
+    FILE *archivo =fopen("usuarios.dat", "rb");
+    if(archivo ==NULL)
+    {
+        printf("\nError al intentar abrir el archivo");
+        return -1;
+    }
+
+    Usuario aux;
+
+    while(fread(&aux, sizeof(Usuario), 1, archivo)==1)
+    {
+        if(strcmp(aux.nickname, nickname)==0)
+        {
+            fclose(archivo);
+            return 1;
+        }
+    }
+    fclose(archivo);
+    return 0;
+}
+
 void registrarUsuario()
 {
     FILE *archivo = fopen("usuarios.dat", "ab");
@@ -60,7 +84,21 @@ void registrarUsuario()
     fgets(nuevo.nickname, 30, stdin);
     nuevo.nickname[strcspn(nuevo.nickname, "\n")] = 0;
 
-    printf("Email: ");
+    int flag= buscarUsuario (nuevo.nickname);
+
+    if(flag== -1)
+    {
+        fclose(archivo);
+        return;
+    }
+    if(flag ==1)
+    {
+        printf("\nEse nickname ya se encunetra registrado");
+        fclose(archivo);
+        return;
+    }
+
+    printf("\nEmail: ");
     fgets(nuevo.email, 50, stdin);
     nuevo.email[strcspn(nuevo.email, "\n")] = 0;
 

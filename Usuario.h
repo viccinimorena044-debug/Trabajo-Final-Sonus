@@ -4,6 +4,7 @@
 #include "Estructuras.h"
 
 int loginUsuario(char *nicknameSalida);
+int buscarUsuario (char nickname[]);
 void registrarUsuario();
 void verCatalogoPorArtista();
 void verCancionesPorAlbum();
