@@ -158,7 +158,7 @@ void reporteAlbumesRecientes()
     {
         printf("  %-40s | %-20s | %4d | %d\n",
                lista[i].titulo, lista[i].artista.nombre,
-               lista[i].anioLanzamiento, lista[i].cantidadCanciones);
+               lista[i].anioLanzamiento, contarCancionesPorAlbum(lista[i].idAlbum));
     }
     printf("\n  Total albumes: %d\n", cantidad);
 }
@@ -175,7 +175,7 @@ void reporteArtistaMasCalificado()
 
     struct DatosArtista
     {
-        char id[10];
+        char id[MAX_ID];
         char nombre[50];
         float sumaPromedios;
         int cantidadCanciones;
