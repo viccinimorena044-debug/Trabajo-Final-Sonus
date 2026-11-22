@@ -174,6 +174,27 @@ void agregarModificarCancion(char *idArtista)
     }
 
     printf("\n--- Agregar / Modificar Cancion ---\n");
+
+    //Mostrar los primeros 5 albumes
+    Album a;
+    char titulos[5][50];
+    int validos=0;
+
+    while(validos <5 && fread(&a, sizeof(Album), 1, fAlbumes)==1)
+    {
+        if(strcmp(a.artista.idArtista, idArtista)==0)
+        {
+            strcpy(titulos[validos], a.titulo);
+            validos++;
+        }
+    }
+
+    printf("\nPrimeros cinco albumes: ");
+    for(int i=0; i< validos; i++)
+    {
+        printf("\n %s", titulos[i]);
+    }
+
     printf("Titulo del album: ");
     fgets(tituloAlbum, 100, stdin);
     tituloAlbum[strcspn(tituloAlbum, "\n")] = 0;
@@ -194,7 +215,7 @@ void agregarModificarCancion(char *idArtista)
     rewind(fCanciones);
     while (fread(&can, sizeof(Cancion), 1, fCanciones))
     {
-        if (strcmp(can.titulo, tituloCancion) == 0 && strcmp(can.idArtista, idArtista) == 0)
+        if (strcmp(can.titulo, tituloCancion) == 0 && strcmp(can.idArtista, idArtista) == 0 && strcmp(can.idAlbum, idAlbumEncontrado)==0)
         {
             encontrado = 1;
             printf("Modificando cancion\n");
