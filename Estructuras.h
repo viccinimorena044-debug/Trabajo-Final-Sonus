@@ -3,7 +3,7 @@
 
 #define MAX_NOMBRE 50
 #define MAX_TITULO 100
-#define MAX_ID 10
+#define MAX_ID 11
 #define MAX_EMAIL 50
 #define MAX_PASS 20
 #define MAX_NICK 30
