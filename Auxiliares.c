@@ -191,3 +191,26 @@ void recalcularPromedio(const char *idCancion)
     }
     fclose(fCan);
 }
+
+int contarCancionesPorAlbum(const char *idAlbum)
+{
+    FILE *archivo = fopen("canciones.dat", "rb");
+    Cancion cancion;
+    int cantidad = 0;
+
+    if (archivo == NULL)
+    {
+        return 0;
+    }
+
+    while (fread(&cancion, sizeof(Cancion), 1, archivo) == 1)
+    {
+        if (strcmp(cancion.idAlbum, idAlbum) == 0)
+        {
+            cantidad++;
+        }
+    }
+
+    fclose(archivo);
+    return cantidad;
+}
