@@ -113,54 +113,91 @@ void reporteAlbumesRecientes()
 {
     FILE *fAlb = fopen("albumes.dat", "rb");
     Album alb;
-    Album lista[500];
-    int cantidad = 0;
+    Album *lista= NULL;
+    int cantidad= 0;
+    int validos= 0;
 
-    printf("\n REPORTE: ALBUMES MAS RECIENTES (por anio de lanzamiento)\n");
-    printf("==========================================================\n");
+    printf("\nREPORTE: ALBUMES MAS RECIENTES\n");
 
-    if (!fAlb)
+    if (fAlb == NULL)
     {
-        printf("No hay albumes registrados.\n");
+        printf("No se pudo abrir el archivo de albumes.\n");
         return;
     }
 
-    while (fread(&alb, sizeof(Album), 1, fAlb))
+    while (fread(&alb, sizeof(Album), 1, fAlb) == 1)
     {
-        lista[cantidad] = alb;
         cantidad++;
     }
-    fclose(fAlb);
 
     if (cantidad == 0)
     {
         printf("No hay albumes registrados.\n");
+        fclose(fAlb);
         return;
     }
 
-    // Ordenar del más reciente al más antiguo
-    for (int i = 0; i < cantidad - 1; i++)
+    fseek(fAlb, 0, SEEK_SET);
+    lista = malloc(cantidad * sizeof(Album));
+
+    if (lista == NULL)
     {
-        for (int j = 0; j < cantidad - i - 1; j++)
+        printf("No se pudo reservar memoria.\n");
+        fclose(fAlb);
+        return;
+    }
+
+    // 3. Cargar los albumes en el arreglo dinamico.
+    while (validos < cantidad &&
+           fread(&lista[validos], sizeof(Album), 1, fAlb) == 1)
+    {
+        validos++;
+    }
+
+    fclose(fAlb);
+
+    if (validos != cantidad)
+    {
+        printf("No se pudieron cargar todos los albumes.\n");
+        free(lista);
+        return;
+    }
+
+    // 4. Ordenar por insercion, del mas reciente al mas antiguo.
+    for (int i = 1; i < validos; i++)
+    {
+        Album actual = lista[i];
+        int j = i - 1;
+
+        while (j >= 0 && lista[j].anioLanzamiento < actual.anioLanzamiento)
         {
-            if (lista[j].anioLanzamiento < lista[j + 1].anioLanzamiento)
-            {
-                Album temp = lista[j];
-                lista[j] = lista[j + 1];
-                lista[j + 1] = temp;
-            }
+            lista[j + 1] = lista[j];
+            j--;
         }
+
+        lista[j + 1] = actual;
     }
 
     printf("  %-40s | %-20s | Anio | Canciones\n", "Album", "Artista");
-    printf("=====================================================\n");
-    for (int i = 0; i < cantidad; i++)
+    mostrarAlbumesRecursivo(lista, validos, 0);
+    printf("\nTotal albumes: %d\n", validos);
+
+    free(lista);
+    lista = NULL;
+}
+
+void mostrarAlbumesRecursivo(Album lista[], int validos, int i)
+{
+    if (i < validos)
     {
         printf("  %-40s | %-20s | %4d | %d\n",
-               lista[i].titulo, lista[i].artista.nombre,
-               lista[i].anioLanzamiento, contarCancionesPorAlbum(lista[i].idAlbum));
+               lista[i].titulo,
+               lista[i].artista.nombre,
+               lista[i].anioLanzamiento,
+               contarCancionesPorAlbum(lista[i].idAlbum));
+
+        mostrarAlbumesRecursivo(lista, validos, i + 1);
     }
-    printf("\n  Total albumes: %d\n", cantidad);
 }
 
 // =====================================================
