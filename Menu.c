@@ -29,7 +29,7 @@ void menuPrincipal()
 void iniciarSesion()
 {
     int tipo;
-    char idArtista[10], nombreArtista[50], nickname[30];
+    char idArtista[11], nombreArtista[50], nickname[30];
 
     printf("\n--- INICIO DE SESION ---\n");
     printf("Que tipo de cuenta tienes?\n");

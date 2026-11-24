@@ -43,7 +43,7 @@
 1793731613 c:\users\juanc\onedrive\escritorio\proyecto final programacion 2026\trabajo-final-sonus\trabajo-final-sonus\trabajo-final-sonus\calificacion.h
 	"Calificacion.h"
 
-1794971284 source:c:\users\feder\onedrive\desktop\trabajo final sonus\artista.c
+1795450951 source:c:\users\feder\onedrive\desktop\trabajo final sonus\artista.c
 	"Artista.h"
 	"Auxiliares.h"
 	<stdio.h>
@@ -67,7 +67,7 @@
 
 1794244415 c:\users\feder\onedrive\desktop\trabajo final sonus\registro.h
 
-1794945912 source:c:\users\feder\onedrive\desktop\trabajo final sonus\usuario.c
+1795195030 source:c:\users\feder\onedrive\desktop\trabajo final sonus\usuario.c
 	"Usuario.h"
 	"Auxiliares.h"
 	<stdio.h>
@@ -118,7 +118,7 @@
 
 1795450831 c:\users\feder\onedrive\desktop\trabajo final sonus\estructuras.h
 
-1794971284 source:c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.c
+1795477007 source:c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.c
 	"Auxiliares.h"
 	<stdio.h>
 	<string.h>
@@ -132,7 +132,7 @@
 1794700284 c:\users\feder\onedrive\desktop\trabajo final sonus\menu.h
 	"Estructuras.h"
 
-1794945912 source:c:\users\feder\onedrive\desktop\trabajo final sonus\menu.c
+1795478237 source:c:\users\feder\onedrive\desktop\trabajo final sonus\menu.c
 	"Menu.h"
 	"Auxiliares.h"
 	"Artista.h"
@@ -142,7 +142,8 @@
 	<stdio.h>
 	<string.h>
 
-1794700253 c:\users\feder\onedrive\desktop\trabajo final sonus\reportes.h
+1795477007 c:\users\feder\onedrive\desktop\trabajo final sonus\reportes.h
+	"Estructuras.h"
 
 1795464516 source:c:\users\nahuel\documents\github\trabajo-final-sonus\artista.c
 	"Artista.h"
