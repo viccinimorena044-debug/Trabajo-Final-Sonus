@@ -1,5 +1,6 @@
 #include "Calificacion.h"
 #include "Auxiliares.h"
+#include "pila.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -7,10 +8,11 @@ void calificarCancion(char *usuarioLogueado)
 {
     FILE *fCan = fopen("canciones.dat", "rb+");
     FILE *fCal = fopen("calificaciones.dat", "ab");
-    char tituloBuscar[100], idCancionEncontrada[10];
+    char idBuscado[MAX_ID], idCancionEncontrada[MAX_ID];
     Cancion can;
     Calificacion nuevaCal;
     int puntuacion;
+    int fCalCerrado = 0;
     int encontrada = 0;
 
     if (!fCan || !fCal)
@@ -22,13 +24,14 @@ void calificarCancion(char *usuarioLogueado)
     }
 
     printf("\n--- Calificar Cancion ---\n");
-    printf("Titulo de la cancion: ");
-    fgets(tituloBuscar, 100, stdin);
-    tituloBuscar[strcspn(tituloBuscar, "\n")] = 0;
+    printf("ID de la cancion: ");
+    fgets(idBuscado, sizeof(idBuscado), stdin);
+    idBuscado[strcspn(idBuscado, "\n")] = '\0';
+
 
     while (fread(&can, sizeof(Cancion), 1, fCan))
     {
-        if (strstr(can.titulo, tituloBuscar) != NULL)
+        if (strcmp(can.idCancion, idBuscado) == 0)
         {
             encontrada = 1;
             strcpy(idCancionEncontrada, can.idCancion);
@@ -50,15 +53,22 @@ void calificarCancion(char *usuarioLogueado)
             nuevaCal.puntuacion = puntuacion;
             fwrite(&nuevaCal, sizeof(Calificacion), 1, fCal);
             fclose(fCal);
-
+            fCalCerrado = 1;
             recalcularPromedio(idCancionEncontrada);
             printf("¡Gracias por tu calificacion! \n");
             break;
         }
     }
-    if (!encontrada) printf("No se encontro ninguna cancion con ese titulo.\n");
+    if (!encontrada)
+        printf("No se encontro ninguna cancion con ese id.\n");
+
+    if (!fCalCerrado)
+    {
+        fclose(fCal);
+    }
 
     fclose(fCan);
+}
 }
 
 void verMisCalificaciones(char *usuarioLogueado)
@@ -72,6 +82,13 @@ void verMisCalificaciones(char *usuarioLogueado)
     if (!fCal)
     {
         printf("Aun no has calificado ninguna cancion.\n");
+
+
+    if (fCan!=NULL)
+    {
+            fclose(fCan);
+        }
+
         return;
     }
     if (!fCan)
@@ -91,6 +108,7 @@ void verMisCalificaciones(char *usuarioLogueado)
         if (strcmp(cal.nicknameUsuario, usuarioLogueado) == 0)
         {
             contador++;
+            apilar(&notas, cal.puntuacion);
             rewind(fCan);
             char nombreCancion[100] = "Desconocida";
             while (fread(&can, sizeof(Cancion), 1, fCan))
@@ -105,16 +123,24 @@ void verMisCalificaciones(char *usuarioLogueado)
         }
     }
 
-    if (contador == 0) printf("Aun no has calificado ninguna cancion.\n");
+    if (contador == 0)
+        printf("Aun no has calificado ninguna cancion.\n");
     else
+  else
     {
+        int i;
         printf("========================================================================\n");
         printf("  Total calificaciones: %d\n", contador);
+        printf("\nTus ultimas notas, de la mas reciente a la mas antigua:\n");
+
+        for (i = 0; i < 3 && !pilavacia(&notas); i++)
+        {
+            printf("%d/5\n", desapilar(&notas));
+        }
     }
 
     fclose(fCal);
     fclose(fCan);
 }
-
 
 

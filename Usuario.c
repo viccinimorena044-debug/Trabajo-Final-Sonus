@@ -155,7 +155,7 @@ void verCatalogoPorArtista()
                 {
                     tieneAlbumes = 1;
                     printf("\n  Album: %s (%d) | %d canciones\n",
-                           alb.titulo, alb.anioLanzamiento, alb.cantidadCanciones);
+                           alb.titulo, alb.anioLanzamiento, contarCancionesPorAlbum(alb.idAlbum));
                     printf(" =================================================\n");
 
                     rewind(fCan);
