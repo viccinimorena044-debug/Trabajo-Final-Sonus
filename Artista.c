@@ -177,7 +177,7 @@ void agregarModificarCancion(char *idArtista)
 
     //Mostrar los primeros 5 albumes
     Album a;
-    char titulos[5][50];
+    char titulos[5][MAX_TITULO];
     int validos=0;
 
     while(validos <5 && fread(&a, sizeof(Album), 1, fAlbumes)==1)
