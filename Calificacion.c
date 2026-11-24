@@ -69,7 +69,6 @@ void calificarCancion(char *usuarioLogueado)
 
     fclose(fCan);
 }
-}
 
 void verMisCalificaciones(char *usuarioLogueado)
 {
@@ -77,6 +76,8 @@ void verMisCalificaciones(char *usuarioLogueado)
     FILE *fCan = fopen("canciones.dat", "rb");
     Calificacion cal;
     Cancion can;
+    Pila notas;
+    inicpila(&notas);
     int contador = 0;
 
     if (!fCal)
@@ -125,7 +126,6 @@ void verMisCalificaciones(char *usuarioLogueado)
 
     if (contador == 0)
         printf("Aun no has calificado ninguna cancion.\n");
-    else
   else
     {
         int i;
