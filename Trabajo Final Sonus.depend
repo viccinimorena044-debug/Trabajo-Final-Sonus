@@ -156,7 +156,7 @@
 
 1795464517 c:\users\nahuel\documents\github\trabajo-final-sonus\estructuras.h
 
-1795234597 c:\users\nahuel\documents\github\trabajo-final-sonus\auxiliares.h
+1795498868 c:\users\nahuel\documents\github\trabajo-final-sonus\auxiliares.h
 	"Estructuras.h"
 
 1795464517 source:c:\users\nahuel\documents\github\trabajo-final-sonus\auxiliares.c
@@ -181,7 +181,7 @@
 1794864579 c:\users\nahuel\documents\github\trabajo-final-sonus\menu.h
 	"Estructuras.h"
 
-1794946371 source:c:\users\nahuel\documents\github\trabajo-final-sonus\menu.c
+1795498282 source:c:\users\nahuel\documents\github\trabajo-final-sonus\menu.c
 	"Menu.h"
 	"Auxiliares.h"
 	"Artista.h"
@@ -218,4 +218,10 @@
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
+
+1795498282 source:c:\users\nahuel\documents\github\trabajo-final-sonus\pila.c
+	<stdio.h>
+	"pila.h"
+
+1795498282 c:\users\nahuel\documents\github\trabajo-final-sonus\pila.h
 

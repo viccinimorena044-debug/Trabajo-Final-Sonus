@@ -13,5 +13,6 @@ void generarIdCancion(char *destino);
 void generarIdCalificacion(char *destino);
 int existeAlbumPorTituloYArtista(const char *titulo, const char *idArtista, char *idEncontrado);
 void recalcularPromedio(const char *idCancion);
+int contarCancionesPorAlbum(const char *idAlbum);
 
 #endif
