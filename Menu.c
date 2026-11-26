@@ -118,9 +118,7 @@ void menuArtista(char *idArtista, char *nombreArtista)
         printf("  2. Agregar / Modificar Cancion\n");
         printf("  3.  Top 10 Canciones\n");
         printf("  4.  Albumes Recientes\n");
-        printf("  5.  Artista Mas Calificado\n");
-        printf("  6.  Usuario Mas Activo\n");
-        printf("  7. Cerrar Sesion\n");
+        printf("  5.  Cerrar Sesion\n");
         printf("========================================\n");
         printf("Seleccione una opcion: ");
         if(scanf("%d", &opcion)==1)
@@ -137,11 +135,9 @@ void menuArtista(char *idArtista, char *nombreArtista)
         {
             case 1: agregarModificarAlbum(idArtista, nombreArtista); break;
             case 2: agregarModificarCancion(idArtista); break;
-            case 3: reporteTop10Canciones(); pausa(); break;
+            case 3: reporteTop10Canciones(idArtista); pausa(); break;
             case 4: reporteAlbumesRecientes(idArtista); pausa(); break;
-            case 5: reporteArtistaMasCalificado(); pausa(); break;
-            case 6: reporteUsuarioMasActivo(); pausa(); break;
-            case 7: printf("Sesion cerrada.\n"); return;
+            case 5: printf("Sesion cerrada.\n"); return;
             default: printf("Opcion invalida.\n");
         }
     }
@@ -186,7 +182,7 @@ void menuUsuario(char *nicknameUsuario)
             case 3: verInfoCancion(); pausa(); break;
             case 4: calificarCancion(nicknameUsuario); pausa(); break;
             case 5: verMisCalificaciones(nicknameUsuario); pausa(); break;
-            case 6: reporteTop10Canciones(); pausa(); break;
+            case 6: reporteTop10Canciones(NULL); pausa(); break;
             case 7: reporteAlbumesRecientes(NULL); pausa(); break;
             case 8: reporteArtistaMasCalificado(); pausa(); break;
             case 9: reporteUsuarioMasActivo(); pausa(); break;
