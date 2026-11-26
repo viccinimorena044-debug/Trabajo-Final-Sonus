@@ -108,11 +108,39 @@ void verMisCalificaciones(char *usuarioLogueado)
     {
         if (strcmp(cal.nicknameUsuario, usuarioLogueado) == 0)
         {
-            contador++;
-            apilar(&notas, cal.puntuacion);
-            rewind(fCan);
-            char nombreCancion[100] = "Desconocida";
-            while (fread(&can, sizeof(Cancion), 1, fCan))
+           contador++;
+        }
+    }
+
+    if (contador == 0)
+    {
+      printf("Aun no has calificado ninguna cancion.\n");
+      fclose(fCal);
+      fclose(fCan);
+      return;
+    }
+  printf("\n Mis Calificaciones — Usuario: %s\n", usuarioLogueado);
+    printf("Total de calificaciones: %d\n", contador);
+    printf("=========================================================================\n");
+    printf("  %-40s | Tu nota\n", "Cancion");
+    printf("==========================================================================\n");
+
+    fseek(fCal, 0, SEEK_SET);
+
+    while (fread(&cal, sizeof(Calificacion), 1, fCal) == 1)
+    {
+        if (strcmp(cal.nicknameUsuario, usuarioLogueado) == 0)
+        {
+            if (contador <= 3)
+            {
+                apilar(&notas, cal.puntuacion);
+            }
+            contador--;
+
+            char nombreCancion[MAX_TITULO] = "Desconocida";
+            fseek(fCan, 0, SEEK_SET);
+
+            while (fread(&can, sizeof(Cancion), 1, fCan) == 1)
             {
                 if (strcmp(can.idCancion, cal.idCancion) == 0)
                 {
@@ -120,27 +148,21 @@ void verMisCalificaciones(char *usuarioLogueado)
                     break;
                 }
             }
+
             printf("  %-40s | %d/5\n", nombreCancion, cal.puntuacion);
         }
     }
 
-    if (contador == 0)
-        printf("Aun no has calificado ninguna cancion.\n");
-  else
-    {
-        int i;
-        printf("========================================================================\n");
-        printf("  Total calificaciones: %d\n", contador);
-        printf("\nTus ultimas notas, de la mas reciente a la mas antigua:\n");
+    printf("\nTus ultimas notas, de la mas reciente a la mas antigua:\n");
 
-        for (i = 0; i < 3 && !pilavacia(&notas); i++)
-        {
-            printf("%d/5\n", desapilar(&notas));
-        }
+    while (!pilavacia(&notas))
+    {
+        printf("%d/5\n", desapilar(&notas));
     }
 
     fclose(fCal);
     fclose(fCan);
 }
+
 
 
