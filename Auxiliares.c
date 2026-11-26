@@ -19,7 +19,7 @@ void pausa()
 }
 
 
-void construirId  (char *destino, char prefijo, int numero, int anchoTotal)
+int construirId (char *destino, char prefijo, int numero, int anchoTotal)
 {
     destino[0]= prefijo;
     destino[1]= '0';
@@ -94,7 +94,6 @@ int generarIdUsuario(char *destino)
     return 1;
 }
 
-
 // Genera ID automatico para album
 int generarIdAlbum(char *destino)
 {
@@ -162,16 +161,14 @@ int generarIdCalificacion(char *destino)
 
     if(contador>=99)
     {
-        printf("\nLimite de ID calificaciones")
+        printf("\nLimite de ID calificaciones");
+        return 0;
     }
 
     construirId(destino, 'I', contador + 1, 2);
-    return 1
+    return 1;
 }
 
-
-
-    return 1;
 
 // Verifica si un album ya existe para ese artista
 int existeAlbumPorTituloYArtista(const char *titulo, const char *idArtista, char *idEncontrado)
