@@ -189,13 +189,13 @@ void agregarModificarCancion(char *idArtista)
         }
     }
 
-    printf("\nPrimeros cinco albumes: ");
+    printf("\nPrimeros cinco albumes\n: ");
     for(int i=0; i< validos; i++)
     {
         printf("\n %s", titulos[i]);
     }
 
-    printf("Titulo del album: ");
+    printf("\nTitulo del album: \n");
     fgets(tituloAlbum, 100, stdin);
     tituloAlbum[strcspn(tituloAlbum, "\n")] = 0;
 

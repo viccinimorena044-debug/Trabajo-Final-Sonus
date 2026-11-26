@@ -232,3 +232,76 @@
 	<stdio.h>
 	"pila.h"
 
+1795638842 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\artista.c
+	"Artista.h"
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\artista.h
+	"Estructuras.h"
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\estructuras.h
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\auxiliares.h
+	"Estructuras.h"
+
+1795638842 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\auxiliares.c
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+
+1795638842 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\calificacion.c
+	"Calificacion.h"
+	"Auxiliares.h"
+	"pila.h"
+	<stdio.h>
+	<string.h>
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\calificacion.h
+	"Estructuras.h"
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\pila.h
+
+1795638842 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\main.c
+	<stdio.h>
+	"Menu.h"
+	"Auxiliares.h"
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\menu.h
+	"Estructuras.h"
+
+1795638842 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\menu.c
+	"Menu.h"
+	"Auxiliares.h"
+	"Artista.h"
+	"Usuario.h"
+	"Reportes.h"
+	"Calificacion.h"
+	<stdio.h>
+	<string.h>
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\usuario.h
+	"Estructuras.h"
+
+1795638842 c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\reportes.h
+	"Estructuras.h"
+
+1795638842 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\pila.c
+	<stdio.h>
+	"pila.h"
+
+1795638842 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\reportes.c
+	"Reportes.h"
+	"Estructuras.h"
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1795642508 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 13\trabajo-final-sonus\usuario.c
+	"Usuario.h"
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+
