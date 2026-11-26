@@ -165,7 +165,7 @@ void verCatalogoPorArtista()
                         {
                             int min = can.duracionSegundos / 60;
                             int seg = can.duracionSegundos % 60;
-                            printf("    • %s (%02d:%02d) | %.1f\n",
+                            printf("%s (%02d:%02d) | %.1f\n",
                                    can.titulo, min, seg, can.calificacionPromedio);
                         }
                     }
@@ -188,7 +188,8 @@ void verCancionesPorAlbum()
 {
     FILE *fAlb = fopen("albumes.dat", "rb");
     FILE *fCan = fopen("canciones.dat", "rb");
-    char tituloBuscar[100], idAlbumEncontrado[10];
+    char tituloBuscar[100], idAlbumEncontrado[MAX_ID];
+    char nombreArtistaBuscar[MAX_NOMBRE];
     Album alb;
     Cancion can;
     int albumEncontrado = 0;
@@ -206,9 +207,13 @@ void verCancionesPorAlbum()
     fgets(tituloBuscar, 100, stdin);
     tituloBuscar[strcspn(tituloBuscar, "\n")] = 0;
 
+    printf("Nombre del artista: ");
+    fgets(nombreArtistaBuscar, MAX_NOMBRE, stdin);
+    nombreArtistaBuscar[strcspn(nombreArtistaBuscar, "\n")] = 0;
+
     while (fread(&alb, sizeof(Album), 1, fAlb))
     {
-        if (strstr(alb.titulo, tituloBuscar) != NULL)
+        if (strcmp(alb.titulo,tituloBuscar)==0 && strcmp(alb.artista.nombre,nombreArtistaBuscar)==0)
         {
             albumEncontrado = 1;
             strcpy(idAlbumEncontrado, alb.idAlbum);
@@ -305,6 +310,8 @@ void verInfoCancion()
             printf("                INFORMACION DE CANCION             \n");
             printf(" ==================================================\n");
             printf(" Titulo:    %-45s \n", can.titulo);
+
+            printf("\n ID de la cancion: %s\n", can.idCancion);
             printf(" Artista:   %-45s \n", nombreArtista);
             printf(" Album:     %-45s \n", nombreAlbum);
             printf(" Duracion:  %02d:%02d                               \n", min, seg);

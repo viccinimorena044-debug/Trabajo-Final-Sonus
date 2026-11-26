@@ -26,7 +26,7 @@ void construirId  (char *destino, char prefijo, int numero, int anchoTotal)
     destino[2]= '0';
     destino[1 + anchoTotal] = '\0';
 
-    for (int i =0; i <numero; contador++)
+    for (int i =0; i <numero; i++)
     {
         if (destino[2] == '9')
         {

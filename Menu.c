@@ -138,7 +138,7 @@ void menuArtista(char *idArtista, char *nombreArtista)
             case 1: agregarModificarAlbum(idArtista, nombreArtista); break;
             case 2: agregarModificarCancion(idArtista); break;
             case 3: reporteTop10Canciones(); pausa(); break;
-            case 4: reporteAlbumesRecientes(); pausa(); break;
+            case 4: reporteAlbumesRecientes(idArtista); pausa(); break;
             case 5: reporteArtistaMasCalificado(); pausa(); break;
             case 6: reporteUsuarioMasActivo(); pausa(); break;
             case 7: printf("Sesion cerrada.\n"); return;
@@ -187,7 +187,7 @@ void menuUsuario(char *nicknameUsuario)
             case 4: calificarCancion(nicknameUsuario); pausa(); break;
             case 5: verMisCalificaciones(nicknameUsuario); pausa(); break;
             case 6: reporteTop10Canciones(); pausa(); break;
-            case 7: reporteAlbumesRecientes(); pausa(); break;
+            case 7: reporteAlbumesRecientes(NULL); pausa(); break;
             case 8: reporteArtistaMasCalificado(); pausa(); break;
             case 9: reporteUsuarioMasActivo(); pausa(); break;
             case 10: printf("Sesion cerrada.\n"); return;

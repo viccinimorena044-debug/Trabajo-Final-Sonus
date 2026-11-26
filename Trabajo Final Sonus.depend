@@ -85,7 +85,7 @@
 	<string.h>
 	"album.h"
 
-1795537242 c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.h
+1795717967 c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.h
 	"Estructuras.h"
 
 1794574577 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 5\trabajo-final-sonus\artista.c
@@ -118,7 +118,7 @@
 
 1795450831 c:\users\feder\onedrive\desktop\trabajo final sonus\estructuras.h
 
-1795477007 source:c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.c
+1795718076 source:c:\users\feder\onedrive\desktop\trabajo final sonus\auxiliares.c
 	"Auxiliares.h"
 	<stdio.h>
 	<string.h>
@@ -133,7 +133,7 @@
 1794700284 c:\users\feder\onedrive\desktop\trabajo final sonus\menu.h
 	"Estructuras.h"
 
-1795478237 source:c:\users\feder\onedrive\desktop\trabajo final sonus\menu.c
+1795718809 source:c:\users\feder\onedrive\desktop\trabajo final sonus\menu.c
 	"Menu.h"
 	"Auxiliares.h"
 	"Artista.h"
@@ -146,7 +146,7 @@
 1795477007 c:\users\feder\onedrive\desktop\trabajo final sonus\reportes.h
 	"Estructuras.h"
 
-1795464516 source:c:\users\nahuel\documents\github\trabajo-final-sonus\artista.c
+1795535462 source:c:\users\nahuel\documents\github\trabajo-final-sonus\artista.c
 	"Artista.h"
 	"Auxiliares.h"
 	<stdio.h>
@@ -157,17 +157,18 @@
 
 1795464517 c:\users\nahuel\documents\github\trabajo-final-sonus\estructuras.h
 
-1795498868 c:\users\nahuel\documents\github\trabajo-final-sonus\auxiliares.h
+1795721445 c:\users\nahuel\documents\github\trabajo-final-sonus\auxiliares.h
 	"Estructuras.h"
 
-1795464517 source:c:\users\nahuel\documents\github\trabajo-final-sonus\auxiliares.c
+1795721445 source:c:\users\nahuel\documents\github\trabajo-final-sonus\auxiliares.c
 	"Auxiliares.h"
 	<stdio.h>
 	<string.h>
 
-1794864579 source:c:\users\nahuel\documents\github\trabajo-final-sonus\calificacion.c
+1795535462 source:c:\users\nahuel\documents\github\trabajo-final-sonus\calificacion.c
 	"Calificacion.h"
 	"Auxiliares.h"
+	"pila.h"
 	<stdio.h>
 	<string.h>
 
@@ -182,7 +183,7 @@
 1794864579 c:\users\nahuel\documents\github\trabajo-final-sonus\menu.h
 	"Estructuras.h"
 
-1795498282 source:c:\users\nahuel\documents\github\trabajo-final-sonus\menu.c
+1795721445 source:c:\users\nahuel\documents\github\trabajo-final-sonus\menu.c
 	"Menu.h"
 	"Auxiliares.h"
 	"Artista.h"
@@ -195,16 +196,16 @@
 1795234597 c:\users\nahuel\documents\github\trabajo-final-sonus\usuario.h
 	"Estructuras.h"
 
-1795465864 c:\users\nahuel\documents\github\trabajo-final-sonus\reportes.h
+1795721838 c:\users\nahuel\documents\github\trabajo-final-sonus\reportes.h
 	"Estructuras.h"
 
-1795234597 source:c:\users\nahuel\documents\github\trabajo-final-sonus\usuario.c
+1795721445 source:c:\users\nahuel\documents\github\trabajo-final-sonus\usuario.c
 	"Usuario.h"
 	"Auxiliares.h"
 	<stdio.h>
 	<string.h>
 
-1794944605 source:c:\users\nahuel\documents\github\trabajo-final-sonus\reportes.c
+1795721838 source:c:\users\nahuel\documents\github\trabajo-final-sonus\reportes.c
 	"Reportes.h"
 	"Estructuras.h"
 	"Auxiliares.h"
@@ -231,4 +232,77 @@
 1795537242 source:c:\users\feder\onedrive\desktop\trabajo final sonus\pila.c
 	<stdio.h>
 	"pila.h"
+
+1795722280 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\artista.c
+	"Artista.h"
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\artista.h
+	"Estructuras.h"
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\estructuras.h
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\auxiliares.h
+	"Estructuras.h"
+
+1795722280 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\auxiliares.c
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+
+1795724378 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\calificacion.c
+	"Calificacion.h"
+	"Auxiliares.h"
+	"pila.h"
+	<stdio.h>
+	<string.h>
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\calificacion.h
+	"Estructuras.h"
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\pila.h
+
+1795722280 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\main.c
+	<stdio.h>
+	"Menu.h"
+	"Auxiliares.h"
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\menu.h
+	"Estructuras.h"
+
+1795722280 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\menu.c
+	"Menu.h"
+	"Auxiliares.h"
+	"Artista.h"
+	"Usuario.h"
+	"Reportes.h"
+	"Calificacion.h"
+	<stdio.h>
+	<string.h>
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\usuario.h
+	"Estructuras.h"
+
+1795722280 c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\reportes.h
+	"Estructuras.h"
+
+1795722280 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\pila.c
+	<stdio.h>
+	"pila.h"
+
+1795722280 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\reportes.c
+	"Reportes.h"
+	"Estructuras.h"
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+
+1795722280 source:c:\users\juanc\onedrive\escritorio\trabajo final sonus 14\trabajo-final-sonus\usuario.c
+	"Usuario.h"
+	"Auxiliares.h"
+	<stdio.h>
+	<string.h>
 
