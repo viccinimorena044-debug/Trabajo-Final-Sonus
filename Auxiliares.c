@@ -19,7 +19,7 @@ void pausa()
 }
 
 
-void construirId  (char *destino, const char *prefijo, int numero, int anchoTotal)
+int construirId  (char *destino, const char *prefijo, int numero, int anchoTotal)
 {
     strcpy(destino, prefijo);
 
@@ -58,7 +58,7 @@ void construirId  (char *destino, const char *prefijo, int numero, int anchoTota
 
 
 // Genera ID automatico para Artista
-void generarIdArtista(char *destino)
+int generarIdArtista(char *destino)
 {
     FILE *archivo= fopen("artistas.dat", "rb");
     int contador= 0;
@@ -74,7 +74,7 @@ void generarIdArtista(char *destino)
 
 
 // Genera ID automatico para Usuario
-void generarIdUsuario(char *destino)
+int generarIdUsuario(char *destino)
 {
     FILE *archivo = fopen("usuarios.dat", "rb");
     int contador = 0;
@@ -90,7 +90,7 @@ void generarIdUsuario(char *destino)
 
 
 // Genera ID automatico para album
-void generarIdAlbum(char *destino)
+int generarIdAlbum(char *destino)
 {
     FILE *archivo = fopen("albumes.dat", "rb");
     int contador = 0;
@@ -106,7 +106,7 @@ void generarIdAlbum(char *destino)
 
 
 // Genera ID automatico para Cancion
-void generarIdCancion(char *destino)
+int generarIdCancion(char *destino)
 {
     FILE *archivo = fopen("canciones.dat", "rb");
     int contador = 0;
@@ -121,7 +121,7 @@ void generarIdCancion(char *destino)
 
 
 // Genera ID automatico para Calificacion
-void generarIdCalificacion(char *destino)
+int generarIdCalificacion(char *destino)
 {
     FILE *archivo = fopen("calificaciones.dat", "rb");
     int contador = 0;
