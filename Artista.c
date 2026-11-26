@@ -44,6 +44,30 @@ int loginArtista(char *idSalida, char *nombreSalida)
 // =====================================================
 // REGISTRAR NUEVO ARTISTA
 // =====================================================
+
+int buscarArtista (char nombre[])
+{
+    FILE *archivo =fopen("artistas.dat", "rb");
+    if(archivo ==NULL)
+    {
+        printf("\nError al intentar abrir el archivo");
+        return -1;
+    }
+
+    Artista aux;
+
+    while(fread(&aux, sizeof(Artista), 1, archivo)==1)
+    {
+        if(strcmp(aux.nombre, nombre)==0)
+        {
+            fclose(archivo);
+            return 1;
+        }
+    }
+    fclose(archivo);
+    return 0;
+}
+
 void registrarArtista()
 {
     FILE *archivo = fopen("artistas.dat", "ab");
@@ -55,17 +79,36 @@ void registrarArtista()
         return;
     }
 
-    generarIdArtista(nuevo.idArtista);
+    if(generarIdArtista(nuevo.idArtista)==0)
+    {
+        fclose(archivo);
+        return;
+    }
 
     printf("\nNombre artistico: ");
     fgets(nuevo.nombre, 50, stdin);
     nuevo.nombre[strcspn(nuevo.nombre, "\n")] = 0;
 
-    printf("\nGenero principal: ");
+    int flag = buscarArtista(nuevo.nombre);
+
+    if(flag== -1)
+    {
+        fclose(archivo);
+        return;
+    }
+
+    if(flag ==1)
+    {
+        printf("\nEse nombre artistico ya se esta usando");
+        fclose(archivo);
+        return;
+    }
+
+    printf("Genero principal: ");
     fgets(nuevo.generoPrincipal, 30, stdin);
     nuevo.generoPrincipal[strcspn(nuevo.generoPrincipal, "\n")] = 0;
 
-    printf("\nContrasenia: ");
+    printf("Contrasenia: ");
     fgets(nuevo.contrasenia, 20, stdin);
     nuevo.contrasenia[strcspn(nuevo.contrasenia, "\n")] = 0;
 
@@ -124,7 +167,11 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
 
     if (!encontrado)
     {
-        generarIdAlbum(nuevoAlbum.idAlbum);
+        if(generarIdAlbum(nuevoAlbum.idAlbum)==0)
+        {
+            fclose(archivo);
+            return;
+        }
         strcpy(nuevoAlbum.titulo, tituloBuscar);
         strcpy(nuevoAlbum.artista.idArtista, idArtista);
         strcpy(nuevoAlbum.artista.nombre, nombreArtista);
@@ -195,7 +242,7 @@ void agregarModificarCancion(char *idArtista)
         printf("\n %s", titulos[i]);
     }
 
-    printf("Titulo del album: ");
+    printf("\nTitulo del album: ");
     fgets(tituloAlbum, 100, stdin);
     tituloAlbum[strcspn(tituloAlbum, "\n")] = 0;
 
@@ -239,7 +286,13 @@ void agregarModificarCancion(char *idArtista)
 
     if (!encontrado)
     {
-        generarIdCancion(nuevaCancion.idCancion);
+
+        if(generarIdCancion(nuevaCancion.idCancion)==0)
+        {
+            fclose(fCanciones);
+            return;
+        }
+
         strcpy(nuevaCancion.titulo, tituloCancion);
         strcpy(nuevaCancion.idAlbum, idAlbumEncontrado);
         strcpy(nuevaCancion.idArtista, idArtista);
@@ -259,3 +312,4 @@ void agregarModificarCancion(char *idArtista)
     }
     fclose(fCanciones);
 }
+

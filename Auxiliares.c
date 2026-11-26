@@ -19,121 +19,159 @@ void pausa()
 }
 
 
-void construirId  (char *destino, const char *prefijo, int numero, int anchoTotal)
+void construirId  (char *destino, char prefijo, int numero, int anchoTotal)
 {
-    strcpy(destino, prefijo);
+    destino[0]= prefijo;
+    destino[1]= '0';
+    destino[2]= '0';
+    destino[1 + anchoTotal] = '\0';
 
-    char numStr[20];
-    int i = 0;
-    int temp = numero;
-
-    // Extraer los digitos del numero al reves
-    if (temp == 0)
+    for (int i =0; i <numero; contador++)
     {
-        numStr[i++] = '0';
-    } else {
-        while (temp > 0) {
-            numStr[i++] = (temp % 10) + '0';
-            temp /= 10;
+        if (destino[2] == '9')
+        {
+            destino[2] = '0';
+            destino[1]++;
+        }
+        else
+        {
+            destino[2]++;
         }
     }
-    numStr[i] = '\0';
-
-    int cantDigitos = i;
-    int cerosFaltantes = anchoTotal - cantDigitos;
-
-    // Agregar los ceros a la izquierda necesarios
-    int pos = strlen(destino);
-    for (int c = 0; c < cerosFaltantes; c++) {
-        destino[pos++] = '0';
-    }
-    destino[pos] = '\0';
-
-    // Agregar los digitos en el orden correcto invirtiendolos
-    for (int j = cantDigitos - 1; j >= 0; j--) {
-        destino[pos++] = numStr[j];
-    }
-    destino[pos] = '\0';
 }
 
 
+
 // Genera ID automatico para Artista
-void generarIdArtista(char *destino)
+int generarIdArtista(char *destino)
 {
     FILE *archivo= fopen("artistas.dat", "rb");
     int contador= 0;
     Artista a;
 
-    if (archivo)
+    if (!archivo)
     {
-        while (fread(&a, sizeof(Artista), 1, archivo)) contador++;
-        fclose(archivo);
+        printf("\nNo se pudo abrir el archivo");
+        return 0;
     }
-    construirId(destino, "A", contador + 1, 9);
+
+    while (fread(&a, sizeof(Artista), 1, archivo)) contador++;
+    fclose(archivo);
+
+    if(contador >=99)
+    {
+        printf("\nLimite de ID artistas");
+        return 0;
+    }
+
+    construirId(destino, 'A', contador + 1, 2);
+    return 1;
 }
 
 
 // Genera ID automatico para Usuario
-void generarIdUsuario(char *destino)
+int generarIdUsuario(char *destino)
 {
     FILE *archivo = fopen("usuarios.dat", "rb");
     int contador = 0;
     Usuario u;
-    if (archivo)
+    if (!archivo)
     {
-        while (fread(&u, sizeof(Usuario), 1, archivo)) contador++;
-        fclose(archivo);
+        printf("\nNo se pudo abrir el archivo");
+        return 0;
     }
 
-    construirId(destino, "U", contador + 1, 9);
+    while (fread(&u, sizeof(Usuario), 1, archivo)) contador++;
+        fclose(archivo);
+
+    if(contador>=99)
+    {
+        printf("\nLimite de ID usuarios");
+        return 0;
+    }
+
+    construirId(destino, 'U', contador + 1, 2);
+    return 1;
 }
 
 
 // Genera ID automatico para album
-void generarIdAlbum(char *destino)
+int generarIdAlbum(char *destino)
 {
     FILE *archivo = fopen("albumes.dat", "rb");
     int contador = 0;
     Album a;
-    if (archivo)
+    if (!archivo)
     {
+        printf("\nNo se pudo abrir el archivo");
+        return 0;
+    }
         while (fread(&a, sizeof(Album), 1, archivo)) contador++;
         fclose(archivo);
+
+    if(contador>=99)
+    {
+        printf("\nLimite de ID albumes");
+        return 0;
     }
 
-    construirId(destino, "L", contador + 1, 9);
+    construirId(destino, 'L', contador + 1, 2);
+    return 1;
 }
 
 
 // Genera ID automatico para Cancion
-void generarIdCancion(char *destino)
+int generarIdCancion(char *destino)
 {
     FILE *archivo = fopen("canciones.dat", "rb");
     int contador = 0;
     Cancion c;
-    if (archivo)
+    if (!archivo)
     {
+        printf("\nNo se pudo abrir el archivo");
+        return 0;
+    }
         while (fread(&c, sizeof(Cancion), 1, archivo)) contador++;
         fclose(archivo);
-    }
-    construirId(destino, "C", contador + 1, 9);
+
+        if(contador >=99)
+        {
+            printf("\nLimite de ID canciones");
+            return 0;
+        }
+
+    construirId(destino, 'C', contador + 1, 2);
+    return 1;
 }
 
 
 // Genera ID automatico para Calificacion
-void generarIdCalificacion(char *destino)
+int generarIdCalificacion(char *destino)
 {
     FILE *archivo = fopen("calificaciones.dat", "rb");
     int contador = 0;
     Calificacion c;
-    if (archivo)
+    if (!archivo)
     {
+        printf("\nNo se pudo abrir el archivo");
+        return 0;
+    }
+
         while (fread(&c, sizeof(Calificacion), 1, archivo)) contador++;
         fclose(archivo);
+
+    if(contador>=99)
+    {
+        printf("\nLimite de ID calificaciones")
     }
-        construirId(destino, "CAL", contador + 1, 7);
+
+    construirId(destino, 'I', contador + 1, 2);
+    return 1
 }
 
+
+
+    return 1;
 
 // Verifica si un album ya existe para ese artista
 int existeAlbumPorTituloYArtista(const char *titulo, const char *idArtista, char *idEncontrado)
