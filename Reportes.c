@@ -109,7 +109,7 @@ void reporteTop10Canciones()
 // =====================================================
 // REPORTE: ÁLBUMES MÁS RECIENTES
 // =====================================================
-void reporteAlbumesRecientes()
+void reporteAlbumesRecientes(const char *idArtista)
 {
     FILE *fAlb = fopen("albumes.dat", "rb");
     Album alb;
@@ -127,7 +127,10 @@ void reporteAlbumesRecientes()
 
     while (fread(&alb, sizeof(Album), 1, fAlb) == 1)
     {
-        cantidad++;
+        if(idArtista == NULL || strcmp(alb.artista.idArtista,idArtista) == 0)
+        {
+          cantidad++;
+        }
     }
 
     if (cantidad == 0)
@@ -148,10 +151,13 @@ void reporteAlbumesRecientes()
     }
 
     // 3. Cargar los albumes en el arreglo dinamico.
-    while (validos < cantidad &&
-           fread(&lista[validos], sizeof(Album), 1, fAlb) == 1)
+    while (validos < cantidad && fread(&lista[validos], sizeof(Album), 1, fAlb) == 1)
     {
-        validos++;
+        if(idArtista == NULL || strcmp(alb.artista.idArtista,idArtista) == 0 )
+        {
+            lista[validos] = alb;
+            validos++;
+        }
     }
 
     fclose(fAlb);
