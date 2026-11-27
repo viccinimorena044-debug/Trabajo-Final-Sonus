@@ -19,7 +19,7 @@ void pausa()
 }
 
 
-int construirId (char *destino, char prefijo, int numero, int anchoTotal)
+void construirId (char *destino, char prefijo, int numero, int anchoTotal)
 {
     destino[0]= prefijo;
     destino[1]= '0';
