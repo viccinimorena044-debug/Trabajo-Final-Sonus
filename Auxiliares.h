@@ -5,7 +5,7 @@
 
 void limpiarBuffer();
 void pausa();
-int construirId (char *destino, const char *prefijo, int numero, int anchoTotal);
+void construirId (char *destino, char prefijo, int numero, int anchoTotal);
 int generarIdArtista(char *destino);
 int generarIdUsuario(char *destino);
 int generarIdAlbum(char *destino);

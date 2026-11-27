@@ -116,7 +116,7 @@ void menuArtista(char *idArtista, char *nombreArtista)
         printf("========== MENU ARTISTA: %s ==========\n", nombreArtista);
         printf("  1. Agregar / Modificar Album\n");
         printf("  2. Agregar / Modificar Cancion\n");
-        printf("  3.  Top 10 Canciones\n");
+        printf("  3.  Top 10 mis canciones\n");
         printf("  4.  Albumes Recientes\n");
         printf("  5.  Cerrar Sesion\n");
         printf("========================================\n");

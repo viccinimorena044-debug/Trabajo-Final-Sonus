@@ -140,6 +140,7 @@ void agregarModificarAlbum(char *idArtista, char *nombreArtista)
     fgets(tituloBuscar, 100, stdin);
     tituloBuscar[strcspn(tituloBuscar, "\n")] = 0;
 
+    rewind(archivo);
     while (fread(&alb, sizeof(Album), 1, archivo))
     {
         if (strcmp(alb.titulo, tituloBuscar) == 0 && strcmp(alb.artista.idArtista, idArtista) == 0)
@@ -258,6 +259,7 @@ void agregarModificarCancion(char *idArtista)
     fgets(tituloCancion, 100, stdin);
     tituloCancion[strcspn(tituloCancion, "\n")] = 0;
 
+    rewind(fCanciones);
     while (fread(&can, sizeof(Cancion), 1, fCanciones))
     {
         if (strcmp(can.titulo, tituloCancion) == 0 && strcmp(can.idArtista, idArtista) == 0 && strcmp(can.idAlbum, idAlbumEncontrado)==0)

@@ -5,6 +5,7 @@
 
 // Prototipos simples sin estructuras
 int loginArtista(char *idSalida, char *nombreSalida);
+int buscarArtista(char nombre[]);
 void registrarArtista();
 void agregarModificarAlbum(char *idArtista, char *nombreArtista);
 void agregarModificarCancion(char *idArtista);

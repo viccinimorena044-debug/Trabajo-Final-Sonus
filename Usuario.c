@@ -147,7 +147,6 @@ void verCatalogoPorArtista()
             printf("\n Artista: %s | Genero: %s\n", artEncontrado.nombre, artEncontrado.generoPrincipal);
             printf(" ===============================================================================\n");
 
-            rewind(fAlb);
             int tieneAlbumes = 0;
             while (fread(&alb, sizeof(Album), 1, fAlb))
             {
@@ -217,7 +216,7 @@ void verCancionesPorAlbum()
         {
             albumEncontrado = 1;
             strcpy(idAlbumEncontrado, alb.idAlbum);
-            printf("\n Album: %s — %s (%d)\n",
+            printf("\n Album: %s - %s (%d)\n",
                    alb.titulo, alb.artista.nombre, alb.anioLanzamiento);
             printf("====================================================\n");
             printf("  %-40s | Duracion | Calificacion\n", "Cancion");
@@ -281,7 +280,7 @@ void verInfoCancion()
         {
             encontrada = 1;
 
-            rewind(fAlb);
+            //rewind(fAlb);
             char nombreAlbum[100] = "Desconocido";
             while (fread(&alb, sizeof(Album), 1, fAlb))
             {
